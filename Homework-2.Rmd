@@ -1,0 +1,197 @@
+---
+title: "Homework-2"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(openintro)
+```
+
+
+
+# Problem Set Solutions in Linear Algebra
+
+### Problem Set 1: Matrix Non-commutativity and Symmetric Matrices
+
+Objective: Show that $ATA ≠ $AAT$in general and discuss conditions under which $ATA = AAT$
+
+Matrix multiplication is non-commutative, meaning that the order of multiplication matters. For instance, given a matrix *A*:
+
+
+A * \cdot A^T = \begin{bmatrix}
+    a_{11} & a_{12} & \dots & a_{1n} \\
+    a_{21} & a_{22} & \dots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{m1} & a_{m2} & \dots & a_{mn}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+    a_{11} & a_{21} & \dots & a_{m1} \\
+    a_{12} & a_{22} & \dots & a_{m2} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{1n} & a_{2n} & \dots & a_{mn}
+\end{bmatrix}
+
+***
+$(A^T A)_{ij} = \sum_{k=1}^{n} a_{ik} a_{jk}$
+
+
+It is evident that if $n \neq m$ then $A^TA$and $AA^T$ cannot be equal due to their different dimensions.
+
+Symmetric matrices include diagonal square matrices, such as the identity matrix **I**. For instance:
+
+$$I = \begin{bmatrix}
+  1 & 0 & 0 \\
+  0 & 1 & 0 \\
+  0 & 0 & 1 \\
+\end{bmatrix}$$
+
+
+
+
+For example, suppose we have $A$ and $A^T$ as follows:
+
+Let $B$ be a matrix given by:
+\[ B = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \]
+
+The transpose of $B$, denoted as $B^T$, is:
+\[ B^T = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix} \]
+
+Now, let's find the product $BB^T$:
+\[ BB^T = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix} \]
+
+The element at position $(i, j)$ in $BB^T$ is given by:
+\[ (BB^T)_{ij} = \sum_{k=1}^{3} b_{ik} \cdot (b_{jk})^T \]
+
+After performing the calculations, the result is a $2 \times 2$ matrix:
+\[ BB^T = \begin{bmatrix} 14 & 32 \\ 32 & 77 \end{bmatrix} \]
+
+Next, let's find the product $B^TB$:
+\[ B^TB = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix} \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \]
+
+The element at position $(i, j)$ in $B^TB$ is given by:
+\[ (B^TB)_{ij} = \sum_{k=1}^{3} (b_{ik})^T \cdot b_{kj} \]
+
+After performing the calculations, the result is a $3 \times 3$ matrix:
+\[ B^TB = \begin{bmatrix} 17 & 22 & 27 \\ 22 & 29 & 36 \\ 27 & 36 & 45 \end{bmatrix} \]
+
+As in the previous example, $BB^T$ and $B^TB$ are not equal. Therefore, in general, $BB^T \neq B^TB$ as $B^T \neq B$.
+***
+
+*For a special type of square matrix we get ATA=AAT. Under what conditions could this be true? (Hint: The Identity matrix I is an example of such a matrix)*
+
+
+Let $C$ be a square matrix such that $C^T = C$. This means that $C$ is a symmetric matrix.
+
+\[ C = \begin{bmatrix} c_{11} & c_{12} & \dots & c_{1n} \\ c_{21} & c_{22} & \dots & c_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ c_{n1} & c_{n2} & \dots & c_{nn} \end{bmatrix} \]
+
+Now, let's find $C^TC$ and $CC^T$:
+
+1. $C^TC$:
+\[ C^TC = \begin{bmatrix} c_{11} & c_{21} & \dots & c_{n1} \\ c_{12} & c_{22} & \dots & c_{n2} \\ \vdots & \vdots & \ddots & \vdots \\ c_{1n} & c_{2n} & \dots & c_{nn} \end{bmatrix} \begin{bmatrix} c_{11} & c_{12} & \dots & c_{1n} \\ c_{21} & c_{22} & \dots & c_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ c_{n1} & c_{n2} & \dots & c_{nn} \end{bmatrix} \]
+
+The element at position $(i, j)$ in $C^TC$ is given by:
+\[ (C^TC)_{ij} = \sum_{k=1}^{n} c_{ki} \cdot c_{kj} \]
+
+2. $CC^T$:
+\[ CC^T = \begin{bmatrix} c_{11} & c_{12} & \dots & c_{1n} \\ c_{21} & c_{22} & \dots & c_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ c_{n1} & c_{n2} & \dots & c_{nn} \end{bmatrix} \begin{bmatrix} c_{11} & c_{21} & \dots & c_{n1} \\ c_{12} & c_{22} & \dots & c_{n2} \\ \vdots & \vdots & \ddots & \vdots \\ c_{1n} & c_{2n} & \dots & c_{nn} \end{bmatrix} \]
+
+The element at position $(i, j)$ in $CC^T$ is given by:
+\[ (CC^T)_{ij} = \sum_{k=1}^{n} c_{ik} \cdot c_{jk} \]
+
+Since $C^T = C$, the elements of $C^TC$ and $CC^T$ will be the same. Therefore, in this case, $C^TC = CC^T$ for any symmetric square matrix $C$. This includes diagonal matrices and, in particular, the identity matrix $I$.
+
+
+### Problem Set 2: LU Factorization Function in R
+
+*Define the LU or LDU Factorization Function*
+
+```{r}
+luOrLduFactorize <- function(A, ldu = FALSE) {
+  n <- nrow(A)
+  U <- A
+  L <- diag(n)
+  D <- diag(n)
+  
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      L[j, i] = U[j, i] / U[i, i]
+      U[j, ] = U[j, ] - L[j, i] * U[i, ]
+      
+      if (ldu) {
+        D[j, j] = U[j, j]
+        U[j, j] = 1  # Set diagonal elements of U to 1 in LDU factorization
+      }
+    }
+  }
+  
+  if (ldu) {
+    result <- list("L" = L, "D" = D, "U" = U)
+  } else {
+    result <- list("L" = L, "U" = U)
+  }
+  
+  return(result)
+}
+
+```
+
+
+
+*Factorize a Square Matrix A into LU*
+```{r}
+A <- matrix(c(1, 2, 3, 1, 1, 1, 2, 0, 1), nrow = 3)
+
+luResult <- luOrLduFactorize(A)
+
+# Check if LU factorization is correct
+if (all(luResult$L %*% luResult$U == A)) {
+  cat("LU Factorization is correct:\n")
+  print("Original Matrix A:")
+  print(A)
+  print("Lower Triangular Matrix L:")
+  print(luResult$L)
+  print("Upper Triangular Matrix U:")
+  print(luResult$U)
+} else {
+  cat("LU Factorization is incorrect.\n")
+}
+
+# Factorize a Square Matrix A into LDU
+A <- matrix(c(1, 2, 3, 1, 1, 1, 2, 0, 1), nrow = 3)
+
+lduResult <- luOrLduFactorize(A, ldu = TRUE)
+
+```
+
+
+*Check if LDU factorization is correct*
+```{r}
+if (all(lduResult$L %*% lduResult$D %*% lduResult$U == A)) {
+  cat("LDU Factorization is correct:\n")
+  print("Original Matrix A:")
+  print(A)
+  print("Lower Triangular Matrix L:")
+  print(lduResult$L)
+  print("Diagonal Matrix D:")
+  print(lduResult$D)
+  print("Upper Triangular Matrix U:")
+  print(lduResult$U)
+} else {
+  cat("LDU Factorization is incorrect.\n")
+}
+```
+
+
+
