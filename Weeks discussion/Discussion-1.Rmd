@@ -1,0 +1,108 @@
+---
+title: "Discussion-1"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(openintro)
+```
+
+
+
+##### Find all solutions to the linear system:
+
+```{r}
+# Define variables
+x <- "x"
+y <- "y"
+z <- "z"
+
+# Equations
+equation1 <- paste(x, "+", y, "-", z, "=", -5)
+equation2 <- paste(x, "-", y, "-", z, "=", -3)
+equation3 <- paste(x, "+", y, "-", z, "=", 0)
+# Display equations
+equation1
+equation2
+equation3
+```
+
+
+
+
+```{r}
+# Coefficient matrix A
+A <- matrix(c(1, 1, -1,   # coefficients for x in equations 1, 2, and 3
+              1, -1, -1,  # coefficients for y in equations 1, 2, and 3
+              1, 1, -1),  # coefficients for z in equations 1, 2, and 3
+            nrow = 3, byrow = TRUE)
+
+# Right-hand side vector B
+B <- c(-5, -3, 0)
+
+# Display A and B
+print("Coefficient matrix A:")
+print(A)
+
+print("Right-hand side vector B:")
+print(B)
+
+```
+
+```{r }
+# Solve the system of equations
+# X <- solve(A, B)
+
+# Display the solution vector X
+# print("Solution vector X:")
+
+
+```
+
+the coefficient matrix A is singular, meaning it doesn't have an inverse. In simpler terms, the system of equations is dependent or inconsistent.
+
+
+You can see that the third row is the same as the first row. This implies that the third equation is redundant and does not provide additional information. In such a case, the system is dependent, 
+
+*** 
+
+Since the system of equations is dependent. I will remove the Redundant Equation in the third equation and use the least squares method to find a solution 
+
+```{r}
+# Coefficient matrix A
+A <- matrix(c(1, 1, -1,   # coefficients for x in equations 1 and 2
+              1, -1, -1),  # coefficients for y in equations 1 and 2
+            nrow = 2, byrow = TRUE)
+
+# Right-hand side vector B
+B <- c(-5, -3)
+
+# Create a data frame for the linear regression
+data <- data.frame(A)
+colnames(data) <- c("x", "y", "z")
+data$B <- B
+
+# Perform linear regression
+model <- lm(B ~ x + y + z, data = data)
+
+# Display coefficients (solution vector X)
+coefficients(model)
+
+```
+
+It appears that the linear regression model has encountered some issues.
+
+
+
+
