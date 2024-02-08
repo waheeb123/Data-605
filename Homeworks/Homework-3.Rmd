@@ -1,0 +1,219 @@
+---
+title: "Homework-3"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(openintro)
+library(pracma)
+library(Matrix)
+```
+
+
+### Problem set 1
+
+**1-What is the rank of the matrix A?**
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 & 4 \\
+-1 & 0 & 1 & 3 \\
+0 & 1 & -2 & 1 \\
+5 & 4 & -2 & -3
+\end{bmatrix}
+\]
+
+As we know that the Nonsingular Matrix Equivalence Theorem, often denoted as NME8, states that for a square matrix $A$
+
+the following statements are equivalent:
+
+1- $A$ is nonsingular (invertible).
+
+2- rank $(A) = n$ , where n is the number of rows (or columns) of $A$
+
+3- The determinant of A is nonzero $(det(A ≠ 0)$
+
+4- The columns (or rows) of are linearly independent
+
+5- The reduced row echelon form of $A$ is the identity matrix.
+
+
+```{r}
+# Define matrix A
+A <- matrix(c(1, 2, 3, 4, 
+              -1, 0, 1, 3, 
+              0, 1, -2, 1, 
+              5, 4, -2, -3), 
+            nrow = 4, byrow = TRUE)
+
+# Compute the determinant of A
+det_A <- det(A)
+
+# Compute the rank of A
+rank_A <- Matrix::rankMatrix(A)
+
+# Check if A is nonsingular (invertible) using NME8
+if (det_A != 0) {
+  cat("Matrix A is nonsingular.\n")
+  cat("Rank of A:", rank_A, "\n")
+} else {
+  cat("Matrix A is singular.\n")
+}
+
+```
+
+***
+
+**2- Given an mxn matrix where $m > n$, what can be the maximum rank? The mini- mum rank, assuming that the matrix is non-zero?**
+
+For an $m × n$ matrix where $m > n$ , the maximum rank that can be achieved is $n$, which is the smaller dimension. This is because the rank of a matrix is bounded by the number of columns or rows, whichever is smaller. Since in this case,$n$ is smaller, the maximum rank cannot exceed n.
+
+On the other hand, the minimum rank of the matrix, assuming it is non-zero, is 1. This is because a non-zero matrix will always have at least one linearly independent row or column, which implies that the rank cannot be zero, So,Maximum rank: $n$ and Minimum rank: $1$
+
+```{r}
+# Example of an m x n matrix where m > n
+m <- 4  # number of rows
+n <- 2  # number of columns
+
+# Create a random non-zero matrix of size m x n
+set.seed(123)  # for reproducibility
+example_matrix <- matrix(runif(m * n, min = -5, max = 5), nrow = m)
+
+# Display the matrix
+print(example_matrix)
+
+# Compute the rank of the matrix
+rank_example <- Matrix::rankMatrix(example_matrix)
+print(paste("Rank of the matrix:", rank_example))
+
+```
+
+The maximum rank that can be achieved is 2 because $n = 2$, which is the smaller dimension of the matrix. as computed, the rank of the matrix is indeed 2
+
+This confirms the theoretical expectation that the maximum rank for this matrix, where $m > n$
+
+***
+**3- What is the rank of matrix B?**
+
+\begin{bmatrix}
+1 & 2 & 1 \\
+3 & 6 & 3 \\
+2 & 4 & 2
+\end{bmatrix}
+
+
+```{r}
+# Define matrix B
+B <- matrix(c(1, 2, 1,
+              3, 6, 3,
+              2, 4, 2), 
+            nrow = 3, byrow = TRUE)
+
+# Compute the rank of B
+rank_B <- Matrix::rankMatrix(B)
+print(paste("Rank of matrix B:", rank_B))
+
+```
+
+
+
+### Problem set 2
+
+Compute the eigenvalues and eigenvectors of the matrix A. You’ll need to show your
+work. You’ll need to write out the characteristic polynomial and show your solution.
+
+
+$A = \begin{bmatrix}
+1 & 2 & 3 \\
+0 & 4 & 5 \\
+0 & 0 & 6
+\end{bmatrix}$
+
+
+
+*Solution :*
+
+```{r}
+A <- matrix(c(1, 2, 3, 0, 4, 5, 0, 0, 6), nrow = 3, byrow = TRUE)
+print(A)
+```
+
+Since A is a *triangular* matrix, its eigenvalues are values on the diagonal, so 
+
+$λ1 = 1$, $λ2 = 4$, and λ3 = 6
+
+Double-check eigenvalues in R
+```{r}
+eigen(A)$values
+```
+
+The characteristic polynomial is $p_A(\lambda) = (1 - \lambda)(4 - \lambda)(6 - \lambda)$ or 
+
+$p_A(\lambda) = 24 - 34\lambda + 11\lambda^2 - \lambda^3$.
+
+\subsection*{Eigenvalue $\lambda = 1$:}
+
+If $\lambda = 1$, then $A - \lambda I_3$ is row-reduced to:
+```{r}
+rref(A - 1 * diag(3))
+```
+
+
+\[
+\begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+\end{pmatrix}
+\]
+
+This gives us the *eigenspace8 $E_{\lambda=1} = \langle \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \rangle$.
+
+\subsection*{Eigenvalue $\lambda = 4$:}
+
+If $\lambda = 4$, then $A - \lambda I_3$ is row-reduced to:
+```{r}
+rref(A - 4 * diag(3))
+```
+
+
+\[
+\begin{pmatrix}
+1 & -0.6666667 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+\end{pmatrix}
+\]
+
+This gives us the *eigenspace* $E_{\lambda=4} = \langle \begin{pmatrix} 1 \\ 1.5 \\ 0 \end{pmatrix} \rangle$.
+
+\subsection*{Eigenvalue $\lambda = 6$:}
+
+If $\lambda = 6$, then $A - \lambda I_3$ is row-reduced to:
+```{r}
+rref(A - 6 * diag(3))
+```
+
+
+\[
+\begin{pmatrix}
+1 & 0 & -1.6 \\
+0 & 1 & -2.5 \\
+0 & 0 & 0 \\
+\end{pmatrix}
+\]
+
+This gives us the *eigenspace* $E_{\lambda=6} = \langle \begin{pmatrix} 1.6 \\ 2.5 \\ 1 \end{pmatrix} \rangle$.
+
+
