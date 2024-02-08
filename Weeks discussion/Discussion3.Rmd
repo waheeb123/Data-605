@@ -1,0 +1,118 @@
+---
+title: "Discussion 3 "
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(openintro)
+```
+
+
+### Exercise C20† Chapter E
+
+
+**Consider the matrix A below. First, show that A is diagonalizable by computing the geometric multiplicities of the eigenvalues and quoting the relevant theorem. Second, find a diagonal matrix D and a nonsingular matrix S so that S−1AS = D. (See Exercise EE.C20 for some of the necessary computations.)**
+
+
+Consider the matrix $A$:
+
+\[
+A = \begin{bmatrix}
+    18 & -15 & 33 & -15 \\
+    -4 & 8 & -6 & 6 \\
+    -9 & 9 & -16 & 9 \\
+    5 & -6 & 9 & -4
+\end{bmatrix}
+\]
+
+\subsection*{Step 1: Diagonalizability and Eigenvalues}
+
+\subsubsection*{1. Find Eigenvalues:}
+
+### Solution 
+To solve the Question first let us set up the characteristic polynomial: $\text{det}(A - \lambda I) = 0$.
+
+\[
+\text{det}\left(\begin{bmatrix}
+    18-\lambda & -15 & 33 & -15 \\
+    -4 & 8-\lambda & -6 & 6 \\
+    -9 & 9 & -16-\lambda & 9 \\
+    5 & -6 & 9 & -4-\lambda
+\end{bmatrix}\right) = 0
+\]
+
+ To solve for eigenvalues $\lambda$. The characteristic polynomial is given by:
+
+\[
+\lambda^4 - 6\lambda^3 - 59\lambda^2 + 250\lambda - 300
+\]
+
+Now, I,m going to find the roots of this polynomial to get the eigenvalues.
+
+
+```{r}
+if (!requireNamespace("pracma", quietly = TRUE)) {
+  install.packages("pracma")
+}
+
+# Load the pracma package
+library(pracma)
+
+# Given matrix A
+matrixA <- matrix(c(18, -15, 33, -15, -4, 8, -6, 6, -9, 9, -16, 9, 5, -6, 9, -4), 4, 4)
+
+# Step 1: Find eigenvalues and eigenvectors
+eigen_result <- eigen(matrixA)
+
+# Extract eigenvalues and eigenvectors
+eigenvalues <- eigen_result$values
+eigenvectors <- eigen_result$vectors
+
+# Step 2: Check algebraic and geometric multiplicities
+for (i in 1:length(eigenvalues)) {
+  lambda <- eigenvalues[i]
+  algebraic_multiplicity <- sum(eigenvalues == lambda)
+  
+  # Calculate eigenspace using nullspace from pracma package
+  eigenspace <- nullspace(matrixA - lambda * diag(nrow(matrixA)))
+  geometric_multiplicity <- ncol(eigenspace)
+  
+  print(paste("Eigenvalue:", lambda))
+  print(paste("Algebraic Multiplicity:", algebraic_multiplicity))
+  print(paste("Geometric Multiplicity:", geometric_multiplicity))
+  
+  # Form matrix S using eigenvectors
+  if (geometric_multiplicity > 1) {
+    eigenspace_matrix <- eigenvectors[, seq_len(geometric_multiplicity)]
+    print(eigenspace_matrix)
+  }
+}
+
+# Step 3: Check diagonalizability and form matrix S
+S <- eigenvectors
+D <- diag(eigenvalues)
+
+# Step 4: Verify diagonalization
+eigen_sol <- round(solve(S) %*% matrixA %*% S, 2)
+print(eigen_sol)
+
+```
+
+
+
+### Conclusion 
+
+The matrix A has been shown to be diagonalizable through the computation of its eigenvalues and corresponding eigenvectors. The algebraic and geometric multiplicities of each eigenvalue were carefully examined, confirming that A is diagonalizable. The diagonal matrix D and nonsingular matrix S satisfying the relationship $S^(-1)AS = D$ were successfully determined. This establishes the diagonalization of matrix A 
+
+

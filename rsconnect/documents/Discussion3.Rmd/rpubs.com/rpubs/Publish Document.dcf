@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1145493/7f3e483371704211978378f14e8cb624
+bundleId: https://api.rpubs.com/api/v1/document/1145493/7f3e483371704211978378f14e8cb624
+url: http://rpubs.com/Algabri/1145493
+when: 1707110729.05212
+lastSyncTime: 1707110729.05213
