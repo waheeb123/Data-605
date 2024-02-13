@@ -1,0 +1,113 @@
+---
+title: "Discussion-4"
+author: "Waheeb Algabri"
+date: "2024-02-13"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Exercise LT.C43 
+
+Consider the linear transformation
+$$
+T:p_3 \rightarrow p_2\\by\\
+T(ax+bx+cx^{2}+dx^{3})=b+2cx+3dx^{2}
+$$
+First, let's find the pre-image of 0 under this transformation. Does this linear transformation seem familiar?
+
+Lets understand what the pre-image is 
+http://mathworld.wolfram.com/Pre-Image.html
+
+A Pre-image exists if whether f has an inverse or not. If f does not have an inverse, then the preimage is defined as the exact image of y. 
+
+Let the following be the preimage of T
+$$
+T^{-1}(0)
+$$
+
+The preimage of T is the set of all polynomials where the following holds true
+$$
+T(ax+bx+cx^{2}+dx^{3})=0
+$$
+
+This implies that the following is also true 
+$$
+b+2cx+3dx^{2}=0
+$$
+Therefore it can be said that zero represents the 0 polynomial, in otherwords the set of all polynomials where a=0,b=0,and c=0 thus polynomials of degree 0. 
+
+How does this transformation look familiar? 
+$$
+T(ax+bx+cx^{2}+dx^{3})=b+2cx+3dx^{2}
+$$
+Is the same as 
+$$
+dx/dy(ax+bx+cx^{2}+dx^{3})=b+2cx+3dx^{2}
+$$
+
+In other words, the expression on the right is the derivative of the polynomial on the left assuming a, b, and c are non zero constants. The derivative of a constant is zero. The derivative of the other terms can be found using the power rule. 
+$$
+dx/dy(ax^{n})=nax^{n-1}
+$$
+
+
+
+```{r}
+# Define the linear transformation function T
+T <- function(poly) {
+  return(poly[2] + 2 * poly[3] * seq_along(poly)[-1] + 3 * poly[4] * (seq_along(poly)[-1])^2)
+}
+
+# Find the pre-image of 0
+preimage <- function() {
+  # Coefficients of the polynomial
+  a <- 0
+  b <- 0
+  c <- 0
+  d <- 0
+  
+  # Check if T(ax+bx+cx^2+dx^3) = 0
+  result <- b + 2 * c * seq(0, 2) + 3 * d * (seq(0, 2))^2
+  
+  # If all coefficients are 0, it's the zero polynomial
+  if(all(result == 0)) {
+    return("The pre-image of 0 is the zero polynomial")
+  } else {
+    return("There is no pre-image of 0")
+  }
+}
+
+# Function to show the familiar nature of the transformation
+familiarity <- function() {
+  # Coefficients of the polynomial
+  a <- 1
+  b <- 2
+  c <- 3
+  d <- 4
+  
+  # Derivative of the polynomial
+  derivative <- c(0, a, 2 * b, 3 * c)  # Derivative of ax + bx + cx^2 + dx^3
+  
+  # Transformation using T
+  transformed <- T(c(0, a, b, c, d))
+  
+  # Check if the derivative and the transformed polynomial match
+  if(all(derivative == transformed)) {
+    return("The transformation resembles taking the derivative of the polynomial with respect to y")
+  } else {
+    return("The transformation does not resemble taking the derivative of the polynomial with respect to y")
+  }
+}
+
+# Print the results
+print(preimage())
+print(familiarity())
+
+```
+
