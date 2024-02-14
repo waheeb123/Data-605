@@ -1,0 +1,433 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Homework-3},
+  pdfauthor={waheeb Algabri},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Homework-3}
+\author{waheeb Algabri}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{loading-necessary-libraries}{%
+\subsection{Loading Necessary
+Libraries:}\label{loading-necessary-libraries}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Setup: Loading necessary libraries}
+\FunctionTok{library}\NormalTok{(jpeg)}
+\FunctionTok{library}\NormalTok{(EBImage)}
+\FunctionTok{library}\NormalTok{(OpenImageR)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(foreach)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{With the attached data file, build and visualize eigenimagery
+that accounts for 80\% of the variability. Provide full R code and
+discussion.}
+
+\hypertarget{loading-in-the-images}{%
+\subsection{Loading in the Images}\label{loading-in-the-images}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Set the path to the directory containing JPEG files}
+\NormalTok{path }\OtherTok{\textless{}{-}} \StringTok{"\textasciitilde{}/Desktop/Data{-}605/Data{-}605/Homeworks/jpg"}
+
+\CommentTok{\# List all JPEG files in the specified directory}
+\NormalTok{files }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(path, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.jpg"}\NormalTok{, }\AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Calculate the number of JPEG files}
+\NormalTok{num }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(files)}
+
+\CommentTok{\# Define image dimensions}
+\NormalTok{height }\OtherTok{\textless{}{-}} \DecValTok{1200}
+\NormalTok{width }\OtherTok{\textless{}{-}} \DecValTok{2500}
+
+\CommentTok{\# Set the scaling factor}
+\NormalTok{scale }\OtherTok{\textless{}{-}} \DecValTok{20}
+
+\CommentTok{\# Calculate new dimensions after scaling}
+\NormalTok{new\_height }\OtherTok{\textless{}{-}}\NormalTok{ height }\SpecialCharTok{/}\NormalTok{ scale}
+\NormalTok{new\_width }\OtherTok{\textless{}{-}}\NormalTok{ width }\SpecialCharTok{/}\NormalTok{ scale}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{load-the-data-into-an-array-and-vectorize}{%
+\subsection{Load the Data into an Array and
+Vectorize}\label{load-the-data-into-an-array-and-vectorize}}
+
+Since the images are very large, we resize each image according to a
+chosen scale and then load each image into an array of scaled dimension.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create an array to store resized images}
+\NormalTok{array\_a }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, num }\SpecialCharTok{*}\NormalTok{ new\_height }\SpecialCharTok{*}\NormalTok{ new\_width }\SpecialCharTok{*} \DecValTok{3}\NormalTok{), }\AttributeTok{dim =} \FunctionTok{c}\NormalTok{(num, new\_height, new\_width, }\DecValTok{3}\NormalTok{))}
+
+\CommentTok{\# Resize and store each image in the array}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num) \{}
+\NormalTok{    temp }\OtherTok{\textless{}{-}} \FunctionTok{resizeImage}\NormalTok{(}\FunctionTok{readJPEG}\NormalTok{(files[i]), new\_height, new\_width)}
+\NormalTok{    array\_a[i, , , ] }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(temp, }\AttributeTok{dim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, new\_height, new\_width, }\DecValTok{3}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We then create a matrix of the RGB components of each image by looping
+through the array of scaled images. Within the loop, the R, G, and B
+components of each image are converted to vectors. These vectors are
+then concatenated and transposed and added into the matrix of images.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Flatten the array and store pixel values in a data frame}
+\NormalTok{flat }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, num, }\FunctionTok{prod}\NormalTok{(}\FunctionTok{dim}\NormalTok{(array\_a)))}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num) \{}
+\NormalTok{    r }\OtherTok{\textless{}{-}} \FunctionTok{as.vector}\NormalTok{(array\_a[i, , , }\DecValTok{1}\NormalTok{])}
+\NormalTok{    g }\OtherTok{\textless{}{-}} \FunctionTok{as.vector}\NormalTok{(array\_a[i, , , }\DecValTok{2}\NormalTok{])}
+\NormalTok{    b }\OtherTok{\textless{}{-}} \FunctionTok{as.vector}\NormalTok{(array\_a[i, , , }\DecValTok{3}\NormalTok{])}
+\NormalTok{    flat[i, ] }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(}\FunctionTok{c}\NormalTok{(r, g, b))}
+\NormalTok{\}}
+
+\CommentTok{\# Convert the flattened matrix to a data frame}
+\NormalTok{shoes }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{(flat))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{creating-a-function-to-plot-the-images}{%
+\subsection{Creating a Function to Plot the
+Images}\label{creating-a-function-to-plot-the-images}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Define a function to plot JPEG images}
+\NormalTok{plot\_jpeg }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(path, }\AttributeTok{add =} \ConstantTok{FALSE}\NormalTok{) \{}
+\NormalTok{    jpg }\OtherTok{\textless{}{-}} \FunctionTok{readJPEG}\NormalTok{(path, }\AttributeTok{native =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    res }\OtherTok{\textless{}{-}} \FunctionTok{dim}\NormalTok{(jpg)[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{1}\NormalTok{]}
+    \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\NormalTok{add) \{}
+        \FunctionTok{plot}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, res[}\DecValTok{1}\NormalTok{]), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, res[}\DecValTok{2}\NormalTok{]), }\AttributeTok{asp =} \DecValTok{1}\NormalTok{, }\AttributeTok{type =} \StringTok{"n"}\NormalTok{,}
+            \AttributeTok{xaxs =} \StringTok{"i"}\NormalTok{, }\AttributeTok{yaxs =} \StringTok{"i"}\NormalTok{, }\AttributeTok{xaxt =} \StringTok{"n"}\NormalTok{, }\AttributeTok{yaxt =} \StringTok{"n"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{""}\NormalTok{, }\AttributeTok{ylab =} \StringTok{""}\NormalTok{,}
+            \AttributeTok{bty =} \StringTok{"n"}\NormalTok{)}
+\NormalTok{    \}}
+    \FunctionTok{rasterImage}\NormalTok{(jpg, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, res[}\DecValTok{1}\NormalTok{], res[}\DecValTok{2}\NormalTok{])}
+\NormalTok{\}}
+
+\CommentTok{\# Plot resized images}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mai =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\FloatTok{0.3}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num) \{}
+    \FunctionTok{plot\_jpeg}\NormalTok{(}\FunctionTok{writeJPEG}\NormalTok{(array\_a[i, , , ]))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework-4_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{Homework-4_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\hypertarget{standardize-the-pixel-values}{%
+\subsection{Standardize the Pixel
+Values}\label{standardize-the-pixel-values}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Standardize the pixel values}
+\NormalTok{scaled }\OtherTok{\textless{}{-}} \FunctionTok{scale}\NormalTok{(shoes, }\AttributeTok{center =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Extract mean and standard deviation of standardized pixel values}
+\NormalTok{mean.shoe }\OtherTok{\textless{}{-}} \FunctionTok{attr}\NormalTok{(scaled, }\StringTok{"scaled:center"}\NormalTok{)}
+\NormalTok{std.shoe }\OtherTok{\textless{}{-}} \FunctionTok{attr}\NormalTok{(scaled, }\StringTok{"scaled:scale"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-the-correlation-matrix}{%
+\subsection{Calculate the Correlation
+Matrix}\label{calculate-the-correlation-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate the correlation matrix}
+\NormalTok{Sigma\_ }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(scaled)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{compute-eigenvalues-of-the-correlation-matrix}{%
+\subsection{Compute Eigenvalues of the Correlation
+Matrix}\label{compute-eigenvalues-of-the-correlation-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Compute eigenvalues of the correlation matrix}
+\NormalTok{myeigen }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(Sigma\_)}
+\NormalTok{eigenvalues }\OtherTok{\textless{}{-}}\NormalTok{ myeigen}\SpecialCharTok{$}\NormalTok{values}
+\NormalTok{eigenvalues}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 11.61745316  1.70394885  0.87429472  0.47497591  0.33549455  0.28761630
+##  [7]  0.24989310  0.21531927  0.17872717  0.16921863  0.15382298  0.14492412
+## [13]  0.14248337  0.12123246  0.11947244  0.11496463  0.09615834
+\end{verbatim}
+
+\hypertarget{extract-eigenvectors-of-the-correlation-matrix}{%
+\subsection{extract Eigenvectors of the Correlation
+Matrix:}\label{extract-eigenvectors-of-the-correlation-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Extract eigenvectors of the correlation matrix}
+\NormalTok{eigenvectors }\OtherTok{\textless{}{-}}\NormalTok{ myeigen}\SpecialCharTok{$}\NormalTok{vectors}
+
+\CommentTok{\# Display the first few rows of eigenvectors in a nice table format}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\FunctionTok{head}\NormalTok{(eigenvectors), }\AttributeTok{format =} \StringTok{"markdown"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0538}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 32\tabcolsep) * \real{0.0591}}@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.2525635 & -0.0575731 & -0.1386619 & 0.3612579 & 0.3367958 & 0.0771434
+& 0.5101649 & 0.4590323 & 0.1004874 & -0.0066637 & 0.0399923 & 0.2091592
+& 0.0802011 & -0.0279929 & 0.1473921 & 0.3173218 & 0.0876285 \\
+0.2568621 & 0.2285982 & -0.0981094 & 0.2282754 & -0.0291860 & 0.1245893
+& 0.1998114 & 0.1230211 & -0.2442517 & 0.0694919 & -0.0229789 &
+-0.2066317 & 0.2766962 & 0.0141970 & -0.1019089 & -0.7341851 &
+-0.1212779 \\
+0.1969535 & -0.3465766 & -0.2315417 & 0.6676894 & -0.1570505 & 0.2328825
+& -0.4447300 & -0.2179298 & 0.0839843 & -0.0133999 & -0.0233552 &
+-0.0477726 & -0.0002179 & 0.0037787 & -0.0300553 & 0.0703296 &
+0.0396419 \\
+0.2402368 & 0.3049035 & -0.1377157 & -0.1120160 & -0.3214305 & 0.3240779
+& 0.0642133 & -0.1110570 & -0.0661180 & -0.0363408 & 0.3765760 &
+0.4259917 & -0.2934239 & -0.2116585 & -0.1245587 & -0.0376213 &
+0.3408931 \\
+0.2538292 & 0.2390470 & -0.0601217 & -0.0198136 & 0.3055220 & -0.1282683
+& -0.2885175 & 0.0737153 & 0.1689848 & 0.2884454 & 0.2680998 &
+-0.1259732 & -0.3649987 & 0.4875641 & 0.2938786 & -0.1177442 &
+0.0726146 \\
+0.2082231 & -0.3477848 & -0.4348510 & -0.3317499 & 0.0020995 &
+-0.1940209 & 0.0210512 & 0.0688897 & 0.1548276 & -0.2519525 & -0.2612493
+& -0.1494615 & -0.0409279 & -0.0791256 & 0.1059181 & -0.2341891 &
+0.4915866 \\
+\end{longtable}
+
+\hypertarget{read-and-plot-a-sample-jpeg-image}{%
+\subsection{Read and Plot a Sample JPEG
+Image:}\label{read-and-plot-a-sample-jpeg-image}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read and plot a sample JPEG image}
+\NormalTok{testing\_img }\OtherTok{\textless{}{-}} \FunctionTok{readJPEG}\NormalTok{(files[}\DecValTok{5}\NormalTok{])}
+\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }\AttributeTok{type =} \StringTok{"n"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\FunctionTok{rasterImage}\NormalTok{(testing\_img, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework-4_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\hypertarget{perform-pca-on-standardized-pixel-values}{%
+\subsection{Perform PCA on Standardized Pixel
+Values}\label{perform-pca-on-standardized-pixel-values}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Perform PCA on standardized pixel values}
+\NormalTok{scaling }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(myeigen}\SpecialCharTok{$}\NormalTok{values[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}\SpecialCharTok{\^{}}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{/}\NormalTok{ (}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(scaled) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{eigenshoes }\OtherTok{\textless{}{-}}\NormalTok{ scaled }\SpecialCharTok{\%*\%}\NormalTok{ myeigen}\SpecialCharTok{$}\NormalTok{vectors[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{] }\SpecialCharTok{\%*\%}\NormalTok{ scaling}
+
+\CommentTok{\# Visualize the fourth eigenshoe}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\FunctionTok{imageShow}\NormalTok{(}\FunctionTok{array}\NormalTok{(eigenshoes[, }\DecValTok{5}\NormalTok{], }\FunctionTok{c}\NormalTok{(}\DecValTok{60}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{3}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework-4_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{calculate-cumulative-variance-explained-by-each-eigenshoe}{%
+\subsection{Calculate Cumulative Variance Explained by Each
+Eigenshoe:}\label{calculate-cumulative-variance-explained-by-each-eigenshoe}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate cumulative variance explained by each eigenshoe}
+\NormalTok{cumulative\_variance }\OtherTok{\textless{}{-}} \FunctionTok{cumsum}\NormalTok{(myeigen}\SpecialCharTok{$}\NormalTok{values) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(myeigen}\SpecialCharTok{$}\NormalTok{values)}
+\NormalTok{cumulative\_variance}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0.6833796 0.7836119 0.8350410 0.8629807 0.8827157 0.8996343 0.9143339
+##  [8] 0.9269998 0.9375131 0.9474672 0.9565156 0.9650405 0.9734219 0.9805532
+## [15] 0.9875810 0.9943436 1.0000000
+\end{verbatim}
+
+\hypertarget{determine-the-number-of-principal-components-explaining-at-least-80-of-the-variance}{%
+\subsection{Determine the Number of Principal Components Explaining at
+Least 80\% of the
+Variance:}\label{determine-the-number-of-principal-components-explaining-at-least-80-of-the-variance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Determine the number of principal components explaining at least 80\% of the variance}
+\NormalTok{num\_comp }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(cumulative\_variance }\SpecialCharTok{\textgreater{}=} \FloatTok{0.8}\NormalTok{)[}\DecValTok{1}\NormalTok{]}
+\NormalTok{num\_comp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\hypertarget{plot-cumulative-variance-explained-by-eigenshoes}{%
+\subsection{Plot Cumulative Variance Explained by
+Eigenshoes:}\label{plot-cumulative-variance-explained-by-eigenshoes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot cumulative variance explained by eigenshoes}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(cumulative\_variance), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num, cumulative\_variance)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Number of eigenshoes"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Cumulative Variance"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{17}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework-4_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\end{document}

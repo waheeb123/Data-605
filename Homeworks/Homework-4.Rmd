@@ -1,0 +1,217 @@
+---
+title: "Homework-3"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(openintro)
+library(pracma)
+library(Matrix)
+```
+
+
+## Loading Necessary Libraries:
+```{r}
+# Setup: Loading necessary libraries
+library(jpeg)
+library(EBImage)
+library(OpenImageR)
+library(tidyverse)
+library(foreach)
+```
+
+
+**With the attached data file, build and visualize eigenimagery that accounts for 80% of the variability. Provide full R code and discussion.**
+
+## Loading in the Images
+
+```{r}
+
+# Set the path to the directory containing JPEG files
+path <- "~/Desktop/Data-605/Data-605/Homeworks/jpg"
+
+# List all JPEG files in the specified directory
+files <- list.files(path, pattern = "\\.jpg", full.names = TRUE)
+
+# Calculate the number of JPEG files
+num <- length(files)
+
+# Define image dimensions
+height <- 1200
+width <- 2500
+
+# Set the scaling factor
+scale <- 20
+
+# Calculate new dimensions after scaling
+new_height <- height / scale
+new_width <- width / scale
+
+```
+
+
+## Load the Data into an Array and Vectorize
+
+Since the images are very large, we resize each image according to a chosen scale and then load each image into an array of  scaled dimension. 
+
+
+```{r}
+# Create an array to store resized images
+array_a <- array(rep(0, num * new_height * new_width * 3), dim = c(num, new_height, new_width, 3))
+
+# Resize and store each image in the array
+for (i in 1:num) {
+    temp <- resizeImage(readJPEG(files[i]), new_height, new_width)
+    array_a[i, , , ] <- array(temp, dim = c(1, new_height, new_width, 3))
+}
+
+```
+
+We then create a matrix of the RGB components of each image by looping through the array of scaled images. Within the loop, the R, G, and B components of each image are converted to vectors. These vectors are then concatenated and transposed and added into the matrix of images. 
+
+```{r}
+# Flatten the array and store pixel values in a data frame
+flat <- matrix(0, num, prod(dim(array_a)))
+
+for (i in 1:num) {
+    r <- as.vector(array_a[i, , , 1])
+    g <- as.vector(array_a[i, , , 2])
+    b <- as.vector(array_a[i, , , 3])
+    flat[i, ] <- t(c(r, g, b))
+}
+
+# Convert the flattened matrix to a data frame
+shoes <- as.data.frame(t(flat))
+
+```
+
+
+## Creating a Function to Plot the Images
+
+```{r}
+# Define a function to plot JPEG images
+plot_jpeg <- function(path, add = FALSE) {
+    jpg <- readJPEG(path, native = TRUE)
+    res <- dim(jpg)[2:1]
+    if (!add) {
+        plot(1, 1, xlim = c(1, res[1]), ylim = c(1, res[2]), asp = 1, type = "n",
+            xaxs = "i", yaxs = "i", xaxt = "n", yaxt = "n", xlab = "", ylab = "",
+            bty = "n")
+    }
+    rasterImage(jpg, 1, 1, res[1], res[2])
+}
+
+# Plot resized images
+par(mfrow = c(3, 3))
+par(mai = c(0.3, 0.3, 0.3, 0.3))
+for (i in 1:num) {
+    plot_jpeg(writeJPEG(array_a[i, , , ]))
+}
+
+```
+
+## Standardize the Pixel Values
+```{r}
+# Standardize the pixel values
+scaled <- scale(shoes, center = TRUE, scale = TRUE)
+
+# Extract mean and standard deviation of standardized pixel values
+mean.shoe <- attr(scaled, "scaled:center")
+std.shoe <- attr(scaled, "scaled:scale")
+
+```
+
+
+## Calculate the Correlation Matrix
+```{r}
+# Calculate the correlation matrix
+Sigma_ <- cor(scaled)
+
+```
+
+
+## Compute Eigenvalues of the Correlation Matrix
+```{r}
+# Compute eigenvalues of the correlation matrix
+myeigen <- eigen(Sigma_)
+eigenvalues <- myeigen$values
+eigenvalues
+
+```
+
+
+## extract Eigenvectors of the Correlation Matrix:
+```{r}
+# Extract eigenvectors of the correlation matrix
+eigenvectors <- myeigen$vectors
+
+# Display the first few rows of eigenvectors in a nice table format
+knitr::kable(head(eigenvectors), format = "markdown")
+
+```
+
+
+## Read and Plot a Sample JPEG Image:
+```{r}
+# Read and plot a sample JPEG image
+testing_img <- readJPEG(files[5])
+plot(1:2, type = "n", main = "")
+rasterImage(testing_img, 1, 1, 2, 2)
+
+```
+
+## Perform PCA on Standardized Pixel Values
+```{r}
+# Perform PCA on standardized pixel values
+scaling <- diag(myeigen$values[1:5]^(-1/2)) / (sqrt(nrow(scaled) - 1))
+eigenshoes <- scaled %*% myeigen$vectors[, 1:5] %*% scaling
+
+# Visualize the fourth eigenshoe
+par(mfrow = c(2, 3))
+imageShow(array(eigenshoes[, 5], c(60, 125, 3)))
+
+```
+
+
+## Calculate Cumulative Variance Explained by Each Eigenshoe: 
+```{r}
+# Calculate cumulative variance explained by each eigenshoe
+cumulative_variance <- cumsum(myeigen$values) / sum(myeigen$values)
+cumulative_variance
+
+```
+
+
+## Determine the Number of Principal Components Explaining at Least 80% of the Variance:
+```{r}
+# Determine the number of principal components explaining at least 80% of the variance
+num_comp <- which(cumulative_variance >= 0.8)[1]
+num_comp
+
+```
+
+## Plot Cumulative Variance Explained by Eigenshoes: 
+```{r}
+# Plot cumulative variance explained by eigenshoes
+ggplot(as.data.frame(cumulative_variance), aes(x = 1:num, cumulative_variance)) +
+    geom_line() + geom_point() + labs(x = "Number of eigenshoes", y = "Cumulative Variance") +
+    scale_x_continuous(breaks = seq(1, 17, by = 2)) + theme_minimal()
+
+```
+
+
+
+
+
+
