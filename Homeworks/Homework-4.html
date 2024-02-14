@@ -1829,12 +1829,12 @@ images.</p>
 <div id="perform-pca-on-standardized-pixel-values" class="section level2">
 <h2>Perform PCA on Standardized Pixel Values</h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Perform PCA on standardized pixel values</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>scaling <span class="ot">&lt;-</span> <span class="fu">diag</span>(myeigen<span class="sc">$</span>values[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">nrow</span>(scaled) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>eigenshoes <span class="ot">&lt;-</span> scaled <span class="sc">%*%</span> myeigen<span class="sc">$</span>vectors[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="sc">%*%</span> scaling</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>scaling <span class="ot">&lt;-</span> <span class="fu">diag</span>(eigenvalues[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">nrow</span>(scaled) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>eigenshoes <span class="ot">&lt;-</span> scaled <span class="sc">%*%</span> eigenvectors[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="sc">%*%</span> scaling</span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co"># Visualize the fourth eigenshoe</span></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="fu">imageShow</span>(<span class="fu">array</span>(eigenshoes[, <span class="dv">5</span>], <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">125</span>, <span class="dv">3</span>)))</span></code></pre></div>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="fu">imageShow</span>(<span class="fu">array</span>(eigenshoes[, <span class="dv">5</span>], <span class="fu">c</span>(new_height, new_width, <span class="dv">3</span>)))</span></code></pre></div>
 <p><img src="Homework-4_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="calculate-cumulative-variance-explained-by-each-eigenshoe" class="section level2">

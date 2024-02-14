@@ -172,16 +172,19 @@ rasterImage(testing_img, 1, 1, 2, 2)
 ```
 
 ## Perform PCA on Standardized Pixel Values
+
+
 ```{r}
 # Perform PCA on standardized pixel values
-scaling <- diag(myeigen$values[1:5]^(-1/2)) / (sqrt(nrow(scaled) - 1))
-eigenshoes <- scaled %*% myeigen$vectors[, 1:5] %*% scaling
+scaling <- diag(eigenvalues[1:5]^(-1/2)) / (sqrt(nrow(scaled) - 1))
+eigenshoes <- scaled %*% eigenvectors[, 1:5] %*% scaling
 
 # Visualize the fourth eigenshoe
 par(mfrow = c(2, 3))
-imageShow(array(eigenshoes[, 5], c(60, 125, 3)))
+imageShow(array(eigenshoes[, 5], c(new_height, new_width, 3)))
 
 ```
+
 
 
 ## Calculate Cumulative Variance Explained by Each Eigenshoe: 
@@ -209,6 +212,7 @@ ggplot(as.data.frame(cumulative_variance), aes(x = 1:num, cumulative_variance)) 
     scale_x_continuous(breaks = seq(1, 17, by = 2)) + theme_minimal()
 
 ```
+
 
 
 
