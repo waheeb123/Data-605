@@ -2,12 +2,12 @@
 title: "Homework-5"
 author: "waheeb Algabri"
 output:
-  pdf_document: default
   html_document:
     highlight: pygments
     theme: cerulean
     toc: true
     toc_float: true
+  pdf_document: default
 editor_options: 
   chunk_output_type: console
 ---
@@ -25,12 +25,14 @@ library(Matrix)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
 ```
 
-## 1. (Bayesian).
+## 1. (Bayesian). {.tabset}
 
 A new test for multinucleoside-resistant (MNR) human immunodeficiency virus type 1 (HIV-1) variants was recently developed. The test maintains **96%** sensitivity, meaning that, for those with the disease, it will correctly report “positive” for 96% of them. The test is also 98% specific,
 meaning that, for those without the disease, **98%** will be correctly reported as “negative.” MNR HIV-1 is considered to be rare (albeit emerging), with about a **.1%** or .001 prevalence rate.Given the prevalence rate, sensitivity, and specificity estimates, what is the probability that an individual who is reported as positive by the new test actually has the disease? If the median cost (consider this the best point estimate) is about \$100,000 per positive case total and the test itself costs $1000 per administration, what is the total first-year cost for treating 100,000 individuals?
 
-a) Given the prevalence rate, sensitivity, and specificity estimates, what is the probability that an individual who is reported as positive by the new test actually has the disease? 
+### First
+
+Given the prevalence rate, sensitivity, and specificity estimates, what is the probability that an individual who is reported as positive by the new test actually has the disease? 
 
 if $A$ is the probability that one has the disease, and $B$ is the probability they they test positive, then we are looking for $P(A|B)$. We can calculate this conditional probability as $P(A|B) = P(B|A)*P(A) /P(B)$.
 
@@ -91,7 +93,9 @@ contingency_freq['sick','positive'] / contingency_freq['margin','positive']
 
 The result matches with ~ **0.0458 (4.58%)**.
 
-b) If the median cost (consider this the best point estimate) is about \$100,000 per positive case total and the test itself costs $1,000 per administration, what is the total first-year cost for treating 100,000 individuals?
+### Second 
+
+If the median cost (consider this the best point estimate) is about \$100,000 per positive case total and the test itself costs $1,000 per administration, what is the total first-year cost for treating 100,000 individuals?
 
 The cost of testing is simply the cost per test (\$1000) times the number of tests (100,000). To get the cost of treatment, there are two appraoches. If we assume that anyone who tests positive will require full treatment, then we multiply the *marginal* probability of testing positive ($P(A)$) by the number of individuals tested (100,000).
 
@@ -125,11 +129,13 @@ cat(
 ```
 
 
-## 2. (Binomial).
+## 2. (Binomial). {.tabset}
 
-The probability of your organization receiving a Joint Commission inspection in any given month is **.05**. 
+The probability of your organization receiving a Joint Commission inspection in any given month is **.05**. What is the probability that, after 24 months, you received exactly 2 inspections? What is the probability that, after 24 months, you received 2 or more inspections? What is the probability that your received fewer than 2 inspections? What is the expected number of inspections you should have received? What is the standard deviation?
 
-a) What is the probability that, after 24 months, you received exactly 2 inspections? 
+### First 
+
+What is the probability that, after 24 months, you received exactly 2 inspections? 
 
 $P(X = 2)$
 
@@ -139,7 +145,9 @@ dbinom(2,24,0.05)
 
 The probability of receiving exactly 2 inspections in 24 months is **22%**.
 
-b) What is the probability that, after 24 months, you received 2 or more inspections? 
+### Second 
+
+What is the probability that, after 24 months, you received 2 or more inspections? 
 
 $P(X \ge 2) = 1 - P(X < 2) = 1 - P(X \le 1)$
 
@@ -149,7 +157,9 @@ $P(X \ge 2) = 1 - P(X < 2) = 1 - P(X \le 1)$
 
 The probability of having 2 or more inspections in 24 months is **34%**. 
 
-c) What is the probability that your received fewer than 2 inspections? 
+### Third 
+
+What is the probability that your received fewer than 2 inspections? 
 
 $P(X < 2) = P(X \le 1)$
 
@@ -159,7 +169,8 @@ pbinom(1,24,0.05)
 
 The probability of receiving less than 2 inspections in 24 months is **66%**.
 
-d) What is the expected number of inspections you should have received? 
+### Fourth
+What is the expected number of inspections you should have received? 
 
 $P(X) \times n$
 
@@ -172,7 +183,9 @@ n*p
 
 The expected number of inspections is **1.2**. 
 
-e) What is the standard deviation?
+### fifth
+
+What is the standard deviation?
 
 $\sigma^{2} = npq \Longrightarrow \sigma = \sqrt{npq}$
 
@@ -185,11 +198,12 @@ sqrt(n*p*q)
 
 The standard deviation is **1.07**. 
 
-## 3. (Poisson). 
+## 3. (Poisson). {.tabset}
 
 You are modeling the family practice clinic and notice that patients arrive at a rate of **10 per hour**. 
 
-a) What is the probability that exactly 3 arrive in one hour? 
+### First
+What is the probability that exactly 3 arrive in one hour? 
 
 $P(X = 3)$
 
@@ -204,7 +218,9 @@ dpois(3, lambda)
 
 The probability that exactly 3 patients arrive in 1 hour is **0.76%**.
 
-b) What is the probability that more than 10 arrive in one hour? 
+### Second
+
+What is the probability that more than 10 arrive in one hour? 
 
 $P(X > 10) = 1 - P(X \le 10)$
 
@@ -214,7 +230,8 @@ $P(X > 10) = 1 - P(X \le 10)$
 
 The probability that more than 10 arrive in one hour is **41.7%**. 
 
-c) How many would you expect to arrive in 8 hours? 
+### Third
+How many would you expect to arrive in 8 hours? 
 
 ```{r}
 # a = rate per hour
@@ -223,7 +240,9 @@ a * 8
 
 You would expect 80 patients in 8 hours. 
 
-d) What is the standard deviation of the appropriate probability distribution? 
+### Fourth
+
+What is the standard deviation of the appropriate probability distribution? 
 
 $\sigma = \sqrt{\lambda}$
 
@@ -236,7 +255,9 @@ sqrt(a*t)
 
 The standard deviation is **3.16** for the one hour instance and **8.94** for the 8 hour instance. 
 
-e) If there are three family practice providers that can see 24 templated patients each day, what is the percent utilization and what are your recommendations?
+### Fifth
+
+If there are three family practice providers that can see 24 templated patients each day, what is the percent utilization and what are your recommendations?
 
 ```{r}
 hrs_limit <- 24
@@ -410,6 +431,4 @@ pexp(2, a)
 ```
 
 The probability the machine will fail in the next 2 years given you already owned it for 8 years is **18.1%**. 
-
-
 
