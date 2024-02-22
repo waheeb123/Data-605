@@ -12,7 +12,7 @@
 <meta name="author" content="waheeb Algabri" />
 
 
-<title>Homework-3</title>
+<title>Homework-5</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1294,6 +1294,107 @@ ul.task-list{list-style: none;}
 
 
 
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -1455,13 +1556,420 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Homework-3</h1>
+<h1 class="title toc-ignore">Homework-5</h1>
 <h4 class="author">waheeb Algabri</h4>
 
 </div>
 
 
-
+<div id="bayesian." class="section level2">
+<h2>1. (Bayesian).</h2>
+<p>A new test for multinucleoside-resistant (MNR) human immunodeficiency
+virus type 1 (HIV-1) variants was recently developed. The test maintains
+<strong>96%</strong> sensitivity, meaning that, for those with the
+disease, it will correctly report “positive” for 96% of them. The test
+is also 98% specific, meaning that, for those without the disease,
+<strong>98%</strong> will be correctly reported as “negative.” MNR HIV-1
+is considered to be rare (albeit emerging), with about a
+<strong>.1%</strong> or .001 prevalence rate.Given the prevalence rate,
+sensitivity, and specificity estimates, what is the probability that an
+individual who is reported as positive by the new test actually has the
+disease? If the median cost (consider this the best point estimate) is
+about $100,000 per positive case total and the test itself costs $1000
+per administration, what is the total first-year cost for treating
+100,000 individuals?</p>
+<ol style="list-style-type: lower-alpha">
+<li>Given the prevalence rate, sensitivity, and specificity estimates,
+what is the probability that an individual who is reported as positive
+by the new test actually has the disease?</li>
+</ol>
+<p>if <span class="math inline">\(A\)</span> is the probability that one
+has the disease, and <span class="math inline">\(B\)</span> is the
+probability they they test positive, then we are looking for <span class="math inline">\(P(A|B)\)</span>. We can calculate this conditional
+probability as <span class="math inline">\(P(A|B) = P(B|A)*P(A)
+/P(B)\)</span>.</p>
+<p>We know that <span class="math inline">\(P(A)\)</span> (the
+prevalance) is equal to 0.001, that <span class="math inline">\(P(B&#39;|A&#39;)\)</span> (the specificity) is
+equal to 0.98, and that <span class="math inline">\(P(B|A)\)</span> (the
+sensitivity) is 0.96. We don’t yet know the value for <span class="math inline">\(P(B)\)</span>, but we can use an alternative
+definition of the conditional probability that using Bayes Rule:</p>
+<p><span class="math display">\[P(A|B) = \frac{P(B|A)*P(A)}
+{P(B|A)*P(A)+(P(B|A&#39;)*(P(A&#39;))}\]</span></p>
+<p>We can calculate <span class="math inline">\(P(B|A&#39;)\)</span> as
+<span class="math inline">\(1 - P(B&#39;|A&#39;)\)</span> and <span class="math inline">\(P(A)\)</span> as <span class="math inline">\(1 -
+P(A)\)</span>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>sensitivity <span class="ot">=</span> <span class="fl">0.96</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>specificity <span class="ot">=</span> <span class="fl">0.98</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>prevalance <span class="ot">=</span> <span class="fl">0.001</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>(sensitivity <span class="sc">*</span> prevalance) <span class="sc">/</span> (sensitivity <span class="sc">*</span> prevalance <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> specificity) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prevalance))</span></code></pre></div>
+<pre><code>## [1] 0.04584527</code></pre>
+<p>The probability that a person has the disease given that the test is
+positive is <strong>0.0458 (4.58%)</strong>.</p>
+<p>I’ll also test this out with a more “empirical” approach and put
+together a contigency table. We’ll assume we’re working with a test
+population of 100,000. We fill values using the probabilities we know
+(<span class="math inline">\(P(A)\)</span>, <span class="math inline">\(P(B|A)\)</span>, and <span class="math inline">\(P(B&#39;|A&#39;)\)</span>), then use the converse
+of these values to fill in the remainder of the table.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>contingency <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;not sick&#39;</span>,<span class="st">&#39;margin&#39;</span>)), </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&#39;positive&#39;</span>,<span class="st">&#39;negative&#39;</span>,<span class="st">&#39;margin&#39;</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;margin&#39;</span>] <span class="ot">&lt;-</span> prevalance <span class="sc">*</span> n</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>contingency[<span class="st">&#39;not sick&#39;</span>, <span class="st">&#39;margin&#39;</span>] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> prevalance) <span class="sc">*</span> n</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;positive&#39;</span>] <span class="ot">&lt;-</span> sensitivity <span class="sc">*</span> contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;margin&#39;</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;negative&#39;</span>] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> sensitivity) <span class="sc">*</span> contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;margin&#39;</span>]</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>contingency[<span class="st">&#39;not sick&#39;</span>, <span class="st">&#39;negative&#39;</span>] <span class="ot">&lt;-</span> specificity <span class="sc">*</span> contingency[<span class="st">&#39;not sick&#39;</span>, <span class="st">&#39;margin&#39;</span>]</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>contingency[<span class="st">&#39;not sick&#39;</span>, <span class="st">&#39;positive&#39;</span>] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> specificity) <span class="sc">*</span> contingency[<span class="st">&#39;not sick&#39;</span>, <span class="st">&#39;margin&#39;</span>]</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>contingency[<span class="st">&#39;margin&#39;</span>, <span class="st">&#39;positive&#39;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(contingency[,<span class="st">&#39;positive&#39;</span>])</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>contingency[<span class="st">&#39;margin&#39;</span>, <span class="st">&#39;negative&#39;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(contingency[,<span class="st">&#39;negative&#39;</span>])</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="fu">round</span>(contingency)</span></code></pre></div>
+<pre><code>##           
+##            positive negative margin
+##   sick           96        4    100
+##   not sick     1998    97902  99900
+##   margin       2094    97906      0</code></pre>
+<p>We can then convert these to probalities (marginal probabilities
+along the marjins, joint probabilities in the top-left square).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>contingency_freq <span class="ot">&lt;-</span> contingency <span class="sc">/</span> n</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>contingency_freq</span></code></pre></div>
+<pre><code>##           
+##            positive negative  margin
+##   sick      0.00096  0.00004 0.00100
+##   not sick  0.01998  0.97902 0.99900
+##   margin    0.02094  0.97906 0.00000</code></pre>
+<p>Finally, we divide <span class="math inline">\(P(AB)\)</span>
+(i.e. the joint probability that one is sick and tests positive) by
+<span class="math inline">\(P(B)\)</span> (i.e. the marginal
+probabilities of testing positive) to get the probability that one is
+truly sick <em>given</em> that they have tested positive (i.e. <span class="math inline">\(P(A|B)\)</span>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>contingency_freq[<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;positive&#39;</span>] <span class="sc">/</span> contingency_freq[<span class="st">&#39;margin&#39;</span>,<span class="st">&#39;positive&#39;</span>]</span></code></pre></div>
+<pre><code>## [1] 0.04584527</code></pre>
+<p>The result matches with ~ <strong>0.0458 (4.58%)</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>If the median cost (consider this the best point estimate) is about
+$100,000 per positive case total and the test itself costs $1,000 per
+administration, what is the total first-year cost for treating 100,000
+individuals?</li>
+</ol>
+<p>The cost of testing is simply the cost per test ($1000) times the
+number of tests (100,000). To get the cost of treatment, there are two
+appraoches. If we assume that anyone who tests positive will require
+full treatment, then we multiply the <em>marginal</em> probability of
+testing positive (<span class="math inline">\(P(A)\)</span>) by the
+number of individuals tested (100,000).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>test_cost <span class="ot">=</span> <span class="dv">100000</span> <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>treatment_cost1 <span class="ot">=</span> contingency[<span class="st">&#39;margin&#39;</span>, <span class="st">&#39;positive&#39;</span>] <span class="sc">*</span> <span class="dv">100000</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>total_cost <span class="ot">=</span> test_cost <span class="sc">+</span> treatment_cost1</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="st">&#39;Test cost: $&#39;</span>, <span class="fu">format</span>(test_cost, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="st">&#39;</span><span class="sc">\n</span><span class="st">Treatment cost: $&#39;</span>, <span class="fu">format</span>(treatment_cost1, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="st">&#39;</span><span class="sc">\n</span><span class="st">Total cost: $&#39;</span>, <span class="fu">format</span>(total_cost, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Test cost: $ 100,000,000 
+## Treatment cost: $ 209,400,000 
+## Total cost: $ 309,400,000</code></pre>
+<p>However, if we assume that only individuals who are <em>truly</em>
+sick require the full $100,000 treatment, then we multiply the
+<em>conditional</em> probability of testing positive (<span class="math inline">\(P(A)\)</span>) by the number of individuals tested
+(100,000).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>treatment_cost2 <span class="ot">=</span> contingency[<span class="st">&#39;sick&#39;</span>, <span class="st">&#39;positive&#39;</span>] <span class="sc">*</span> <span class="dv">100000</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>total_cost <span class="ot">=</span> test_cost <span class="sc">+</span> treatment_cost2</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="st">&#39;Test cost: $&#39;</span>, <span class="fu">format</span>(test_cost, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="st">&#39;</span><span class="sc">\n</span><span class="st">Treatment cost: $&#39;</span>, <span class="fu">format</span>(treatment_cost2, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="st">&#39;</span><span class="sc">\n</span><span class="st">Total cost: $&#39;</span>, <span class="fu">format</span>(total_cost, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Test cost: $ 100,000,000 
+## Treatment cost: $ 9,600,000 
+## Total cost: $ 109,600,000</code></pre>
+</div>
+<div id="binomial." class="section level2">
+<h2>2. (Binomial).</h2>
+<p>The probability of your organization receiving a Joint Commission
+inspection in any given month is <strong>.05</strong>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability that, after 24 months, you received exactly
+2 inspections?</li>
+</ol>
+<p><span class="math inline">\(P(X = 2)\)</span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>,<span class="dv">24</span>,<span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2232381</code></pre>
+<p>The probability of receiving exactly 2 inspections in 24 months is
+<strong>22%</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the probability that, after 24 months, you received 2 or
+more inspections?</li>
+</ol>
+<p><span class="math inline">\(P(X \ge 2) = 1 - P(X &lt; 2) = 1 - P(X
+\le 1)\)</span></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">1</span>,<span class="dv">24</span>,<span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3391827</code></pre>
+<p>The probability of having 2 or more inspections in 24 months is
+<strong>34%</strong>.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What is the probability that your received fewer than 2
+inspections?</li>
+</ol>
+<p><span class="math inline">\(P(X &lt; 2) = P(X \le 1)\)</span></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">1</span>,<span class="dv">24</span>,<span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6608173</code></pre>
+<p>The probability of receiving less than 2 inspections in 24 months is
+<strong>66%</strong>.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>What is the expected number of inspections you should have
+received?</li>
+</ol>
+<p><span class="math inline">\(P(X) \times n\)</span></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">24</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>n<span class="sc">*</span>p</span></code></pre></div>
+<pre><code>## [1] 1.2</code></pre>
+<p>The expected number of inspections is <strong>1.2</strong>.</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>What is the standard deviation?</li>
+</ol>
+<p><span class="math inline">\(\sigma^{2} = npq \Longrightarrow \sigma =
+\sqrt{npq}\)</span></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>q <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">sqrt</span>(n<span class="sc">*</span>p<span class="sc">*</span>q)</span></code></pre></div>
+<pre><code>## [1] 1.067708</code></pre>
+<p>The standard deviation is <strong>1.07</strong>.</p>
+</div>
+<div id="poisson." class="section level2">
+<h2>3. (Poisson).</h2>
+<p>You are modeling the family practice clinic and notice that patients
+arrive at a rate of <strong>10 per hour</strong>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability that exactly 3 arrive in one hour?</li>
+</ol>
+<p><span class="math inline">\(P(X = 3)\)</span></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>lambda <span class="ot">=</span> a<span class="sc">*</span>t</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">3</span>, lambda)</span></code></pre></div>
+<pre><code>## [1] 0.007566655</code></pre>
+<p>The probability that exactly 3 patients arrive in 1 hour is
+<strong>0.76%</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the probability that more than 10 arrive in one hour?</li>
+</ol>
+<p><span class="math inline">\(P(X &gt; 10) = 1 - P(X \le
+10)\)</span></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">10</span>, lambda)</span></code></pre></div>
+<pre><code>## [1] 0.4169602</code></pre>
+<p>The probability that more than 10 arrive in one hour is
+<strong>41.7%</strong>.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>How many would you expect to arrive in 8 hours?</li>
+</ol>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># a = rate per hour</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>a <span class="sc">*</span> <span class="dv">8</span></span></code></pre></div>
+<pre><code>## [1] 80</code></pre>
+<p>You would expect 80 patients in 8 hours.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>What is the standard deviation of the appropriate probability
+distribution?</li>
+</ol>
+<p><span class="math inline">\(\sigma = \sqrt{\lambda}\)</span></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">sqrt</span>(lambda)</span></code></pre></div>
+<pre><code>## [1] 3.162278</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">8</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">sqrt</span>(a<span class="sc">*</span>t)</span></code></pre></div>
+<pre><code>## [1] 8.944272</code></pre>
+<p>The standard deviation is <strong>3.16</strong> for the one hour
+instance and <strong>8.94</strong> for the 8 hour instance.</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>If there are three family practice providers that can see 24
+templated patients each day, what is the percent utilization and what
+are your recommendations?</li>
+</ol>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>hrs_limit <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>providers <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>((a<span class="sc">*</span>t)<span class="sc">/</span>(hrs_limit<span class="sc">*</span>providers)) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 111.1111</code></pre>
+<p>The percent utilization is <strong>111%</strong>. I would recommend
+having more providers so that demand can be met.</p>
+</div>
+<div id="hypergeometric" class="section level2">
+<h2>4. (Hypergeometric)</h2>
+<p><em>Your subordinate with 30 supervisors was recently accused of
+favoring nurses. 15 of the subordinate’s workers are nurses and 15 are
+other than nurses. As evidence of malfeasance, the accuser stated that
+there were 6 company-paid trips to Disney World for which everyone was
+eligible. The supervisor sent 5 nurses and 1 non-nurse. </em></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">15</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">15</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">6</span></span></code></pre></div>
+<p><em>If your subordinate acted innocently, what was the probability
+he/she would have selected five nurses for the trips? </em></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">dhyper</span>(x, m, n, k)</span></code></pre></div>
+<pre><code>## [1] 0.07586207</code></pre>
+<p><em>How many nurses would we have expected your subordinate to send?
+</em></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>m<span class="sc">*</span>k <span class="sc">/</span> (m<span class="sc">+</span>n)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p><em>How many non-nurses would we have expected your subordinate to
+send? </em></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>n<span class="sc">*</span>k <span class="sc">/</span> (m<span class="sc">+</span>n)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="geometric." class="section level2">
+<h2>5. (Geometric).</h2>
+<p>The probability of being seriously injured in a car crash in an
+unspecified location is about <strong>.1% per hour</strong>. A driver is
+required to traverse this area for <strong>1200 hours</strong> in the
+course of a <strong>year</strong>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability that the driver will be seriously injured
+during the course of the year? In the course of 15 months?</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>p_injured <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>hours_per_year <span class="ot">&lt;-</span> <span class="dv">1200</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>hours_per_month <span class="ot">&lt;-</span> hours_per_year <span class="sc">/</span> <span class="dv">12</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a><span class="fu">pgeom</span>(hours_per_year, p_injured)</span></code></pre></div>
+<pre><code>## [1] 0.6992876</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">pgeom</span>(hours_per_month<span class="sc">*</span><span class="dv">15</span>, p_injured)</span></code></pre></div>
+<pre><code>## [1] 0.7772602</code></pre>
+<p>The probability of the driver being seriously injured within a year
+is <strong>69.9%</strong> and within 15 months is
+<strong>77.7%</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the expected number of hours that a driver will drive before
+being seriously injured?</li>
+</ol>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>p_injured</span></code></pre></div>
+<pre><code>## [1] 1000</code></pre>
+<p>The expected number of hours a driver will drive before being
+seriously injured is <strong>1,000</strong> hours.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Given that a driver has driven 1200 hours, what is the probability
+that he or she will be injured in the next 100 hours?</li>
+</ol>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">100</span>, p_injured)</span></code></pre></div>
+<pre><code>## [1] 0.09611265</code></pre>
+<p>The probability the driver will be injured in the next 100 hours
+given that they already drove 1200 hours is <strong>9.61%</strong>.</p>
+</div>
+<div id="binomial" class="section level2">
+<h2>6. (Binomial)</h2>
+<p>** You are working in a hospital that is running off of a primary
+generator which fails about <strong>once in 1000 hours</strong>. a) What
+is the probability that the generator will fail more than twice in 1000
+hours?</p>
+<p><span class="math inline">\(P(X &gt; 2) = 1 - P(X \le 2)\)</span></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a>lambda <span class="ot">=</span> a<span class="sc">*</span>t</span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">2</span>,lambda)</span></code></pre></div>
+<pre><code>## [1] 0.0803014</code></pre>
+<p>The probability of the generator failing more than twice in 1,000
+hours is <strong>8.03%</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the expected value?</li>
+</ol>
+<p><span class="math inline">\(E(X) = \lambda\)</span></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>lambda</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>It is expected that the generator will fail <strong>once</strong> in
+1,000 hours.</p>
+</div>
+<div id="uniform" class="section level2">
+<h2>7. (Uniform)</h2>
+<p>A surgical patient arrives for surgery precisely at a given time.
+Based on previous analysis (or a lack of knowledge assumption), you know
+that the waiting time is uniformly distributed from <strong>0 to 30
+minutes</strong>. What is the probability that this patient will wait
+more than 10 minutes?</p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability that this patient will wait more than 10
+minutes?</li>
+</ol>
+<p><span class="math inline">\(P(X &gt; 10) = 1 - P(X \le
+10)\)</span></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">punif</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">30</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6666667</code></pre>
+<p>The probability a patient will wait more than 10 minutes is
+<strong>66.7%</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>If the patient has already waited 10 minutes, what is the
+probability that he/she will wait at least another 5 minutes prior to
+being seen?</li>
+</ol>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">punif</span>(<span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">30</span>) </span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+<p>The probability the patient will wait at least another 5 minutes
+given they already waited 10 minutes is <strong>75%</strong>.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What is the expected waiting time?</li>
+</ol>
+<p><span class="math inline">\(E(X) = \mu\)</span> = <span class="math inline">\(\alpha + \beta \over 2\)</span></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>(<span class="dv">0</span> <span class="sc">+</span> <span class="dv">30</span>) <span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<p>The expected waiting time is <strong>15 minutes</strong>.</p>
+</div>
+<div id="exponential" class="section level2">
+<h2>8. (Exponential)</h2>
+<p>Your hospital owns an old MRI, which has a manufacturer’s lifetime of
+about <strong>10 years</strong> (expected value). Based on previous
+studies, we know that the failure of most MRIs obeys an exponential
+distribution.</p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the expected failure time?</li>
+</ol>
+<p>The expected failure time is <strong>10 years</strong>.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the standard deviation?</li>
+</ol>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>E_X <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a><span class="fu">sqrt</span>(E_X)</span></code></pre></div>
+<pre><code>## [1] 3.162278</code></pre>
+<p>The standard deviation is <strong>3.16</strong>.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What is the probability that your MRI will fail after 8 years?</li>
+</ol>
+<p><span class="math inline">\(P(X &gt; 8) = 1 - P(X \le 8)\)</span></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span></span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">8</span>, a)</span></code></pre></div>
+<pre><code>## [1] 0.449329</code></pre>
+<p>The probility the machine will fail after 8 years is
+<strong>44.9%</strong>.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Now assume that you have owned the machine for 8 years. Given that
+you already owned the machine 8 years, what is the probability that it
+will fail in the next two years?</li>
+</ol>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">2</span>, a)</span></code></pre></div>
+<pre><code>## [1] 0.1812692</code></pre>
+<p>The probability the machine will fail in the next 2 years given you
+already owned it for 8 years is <strong>18.1%</strong>.</p>
+</div>
 
 
 
