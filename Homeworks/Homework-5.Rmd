@@ -93,6 +93,8 @@ contingency_freq['sick','positive'] / contingency_freq['margin','positive']
 
 The result matches with ~ **0.0458 (4.58%)**.
 
+To learn more about [Bayesian](https://youtu.be/HZGCoVF3YvM?si=kYtBS45DsJqG5uft)
+
 ### Second 
 
 If the median cost (consider this the best point estimate) is about \$100,000 per positive case total and the test itself costs $1,000 per administration, what is the total first-year cost for treating 100,000 individuals?
