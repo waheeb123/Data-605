@@ -1767,7 +1767,13 @@ received?</p>
 <div id="poisson." class="section level2 tabset">
 <h2 class="tabset">3. (Poisson).</h2>
 <p>You are modeling the family practice clinic and notice that patients
-arrive at a rate of <strong>10 per hour</strong>.</p>
+arrive at a rate of <strong>10 per hour</strong>. What is the
+probability that exactly 3 arrive in one hour? What is the probability
+that more than 10 arrive in one hour? How many would you expect to
+arrive in 8 hours? What is the standard deviation of the appropriate
+probability distribution? If there are three family practice providers
+that can see 24 templated patients each day, what is the percent
+utilization and what are your recommendations?</p>
 <div id="first-2" class="section level3">
 <h3>First</h3>
 <p>What is the probability that exactly 3 arrive in one hour?</p>
@@ -1834,7 +1840,11 @@ having more providers so that demand can be met.</p>
 favoring nurses. 15 of the subordinate’s workers are nurses and 15 are
 other than nurses. As evidence of malfeasance, the accuser stated that
 there were 6 company-paid trips to Disney World for which everyone was
-eligible. The supervisor sent 5 nurses and 1 non-nurse. </em></p>
+eligible. The supervisor sent 5 nurses and 1 non-nurse.If your
+subordinate acted innocently, what was the probability he/she would have
+selected five nurses for the trips? How many nurses would we have
+expected your subordinate to send? How many non-nurses would we have
+expected your subordinate to send? </em></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">5</span></span>
 <span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">15</span></span>
 <span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">15</span></span>
@@ -1852,16 +1862,22 @@ send? </em></p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>n<span class="sc">*</span>k <span class="sc">/</span> (m<span class="sc">+</span>n)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
-<div id="geometric." class="section level2">
-<h2>5. (Geometric).</h2>
+<div id="geometric." class="section level2 tabset">
+<h2 class="tabset">5. (Geometric).</h2>
 <p>The probability of being seriously injured in a car crash in an
 unspecified location is about <strong>.1% per hour</strong>. A driver is
 required to traverse this area for <strong>1200 hours</strong> in the
-course of a <strong>year</strong>.</p>
-<ol style="list-style-type: lower-alpha">
-<li>What is the probability that the driver will be seriously injured
-during the course of the year? In the course of 15 months?</li>
-</ol>
+course of a <strong>year</strong>.What is the probability that the
+driver will be seriously injured during the course of the year? In the
+course of <strong>15</strong> months? What is the expected number of
+hours that a driver will drive before being seriously injured? Given
+that a driver has driven <strong>1200</strong> hours, what is the
+probability that he or she will be injured in the next <strong>100
+hours</strong>?</p>
+<div id="first-3" class="section level3">
+<h3>First</h3>
+<p>What is the probability that the driver will be seriously injured
+during the course of the year? In the course of 15 months?</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>p_injured <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
 <span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>hours_per_year <span class="ot">&lt;-</span> <span class="dv">1200</span></span>
@@ -1874,22 +1890,25 @@ during the course of the year? In the course of 15 months?</li>
 <p>The probability of the driver being seriously injured within a year
 is <strong>69.9%</strong> and within 15 months is
 <strong>77.7%</strong>.</p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>What is the expected number of hours that a driver will drive before
-being seriously injured?</li>
-</ol>
+</div>
+<div id="second-3" class="section level3">
+<h3>Second</h3>
+<p>What is the expected number of hours that a driver will drive before
+being seriously injured?</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>p_injured</span></code></pre></div>
 <pre><code>## [1] 1000</code></pre>
 <p>The expected number of hours a driver will drive before being
 seriously injured is <strong>1,000</strong> hours.</p>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>Given that a driver has driven 1200 hours, what is the probability
-that he or she will be injured in the next 100 hours?</li>
-</ol>
+</div>
+<div id="third-2" class="section level3">
+<h3>Third</h3>
+<p>Given that a driver has driven 1200 hours, what is the probability
+that he or she will be injured in the next 100 hours?</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">100</span>, p_injured)</span></code></pre></div>
 <pre><code>## [1] 0.09611265</code></pre>
 <p>The probability the driver will be injured in the next 100 hours
 given that they already drove 1200 hours is <strong>9.61%</strong>.</p>
+</div>
 </div>
 <div id="binomial" class="section level2">
 <h2>6. (Binomial)</h2>
