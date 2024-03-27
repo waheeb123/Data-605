@@ -263,26 +263,5 @@ results %>%
 ```
 
 
-```{r}
-library(ggplot2)
-
-# Define your functions expected_val_expo() and variance_expo() here
-
-results <- data.frame()
-
-for (lambda in seq(0, 1, length.out = 100)) {
-  mean <- expected_val_expo(lambda, 0)  # Assuming the second argument is a placeholder
-  variance <- variance_expo(lambda, 0)  # Assuming the second argument is a placeholder
-  result <- list(lambda = lambda, mean = mean, variance = variance)
-  results <- rbind(results, result)
-}
-
-results %>%
-  ggplot() +
-  geom_line(aes(x = lambda, y = mean), color = 'blue') +
-  geom_line(aes(x = lambda, y = variance), color = 'black')
-
-```
-
 
 

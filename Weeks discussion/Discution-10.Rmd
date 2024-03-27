@@ -1,0 +1,109 @@
+---
+title: "Discussion-10"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+
+### chapter 12,EX 1
+
+Using the Binomial Theorem, show that
+
+
+$\frac{1}{\sqrt{1-4x}} = \sum_{m=0}^{\infty} \binom{2m}{m} x^m$
+
+
+What is the interval of convergence of this power series?
+
+##### The Solution
+
+To use the Binomial Theorem, we have:
+
+\[ (1+x)^{\frac{1}{2}} = \sum_{m=0}^{\infty} \binom{\frac{1}{2}}{m} (2mx)^m \]
+
+Where \( \binom{\frac{1}{2}}{m} = \frac{\frac{1}{2}(\frac{1}{2}-1)(\frac{1}{2}-2)...(\frac{1}{2}-m+1)}{m!} \) is the binomial coefficient.
+
+Now, \( \binom{\frac{1}{2}}{m} = \frac{\frac{1}{2}(\frac{-1}{2})(\frac{-3}{2})...(\frac{-2m+1}{2})}{m!} = \frac{(-1)^m}{2^m} \cdot \frac{1 \cdot 3 \cdot 5 \cdot ... \cdot (2m-1)}{m!} \)
+
+And \( \frac{1 \cdot 3 \cdot 5 \cdot ... \cdot (2m-1)}{m!} = \frac{(2m)!}{m! \cdot 2^m \cdot m!} = \frac{(2m)!}{(m!)^2 \cdot 2^m} \)
+
+So, \( \binom{\frac{1}{2}}{m} = \frac{(-1)^m}{2^m} \cdot \frac{(2m)!}{(m!)^2 \cdot 2^{2m}} \)
+
+Now, plug this back into the power series:
+
+\[ (1+x)^{\frac{1}{2}} = \sum_{m=0}^{\infty} \frac{(-1)^m \cdot (2m)!}{(m!)^2 \cdot 2^{2m}} \cdot (2mx)^m \]
+
+Simplifying this gives:
+
+\[ (1+x)^{\frac{1}{2}} = \sum_{m=0}^{\infty} \frac{(-1)^m \cdot (2m)!}{(m!)^2 \cdot 2^{2m}} \cdot (2mx)^m \]
+
+Now, for the interval of convergence, we can use the ratio test:
+
+\[ \lim_{m \to \infty} \left| \frac{a_{m+1}}{a_m} \right| < 1 \]
+
+Where \( a_m = \frac{(-1)^m \cdot (2m)!}{(m!)^2 \cdot 2^{2m}} \cdot (2mx)^m \)
+
+\[ \lim_{m \to \infty} \left| \frac{(-1)^{m+1} \cdot (2m+2)! \cdot (2mx)^{m+1} \cdot (m!)^2 \cdot 2^{2m}}{(-1)^m \cdot (2m)! \cdot ((m+1)!)^2 \cdot 2^{2(m+1)} \cdot (2mx)^m} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{(2m+2)! \cdot (2mx)^{m+1} \cdot (m!)^2 \cdot 2^{2m}}{(2m)! \cdot ((m+1)!)^2 \cdot 2^{2(m+1)} \cdot (2mx)^m} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{(2m+1)(2m+2)(2x)}{(m+1)^2 \cdot 2^2} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{(2m+1)(2x)}{(m+1)^2 \cdot 4} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{(2m+1)(2x)}{4(m^2+2m+1)} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{(2m+1)(2x)}{4m^2+8m+4} \right| < 1 \]
+
+\[ \lim_{m \to \infty} \left| \frac{4x}{4} \right| < 1 \]
+
+\[ |x| < 1 \]
+
+So, the interval of convergence is \( -1 < x < 1 \).
+
+
+
+```{r}
+# Define the function to calculate the power series
+power_series <- function(x, n_terms) {
+  series <- vector(mode = "numeric", length = n_terms)
+  for (m in 0:(n_terms - 1)) {
+    series[m + 1] <- choose(2 * m, m) * x^m
+  }
+  return(series)
+}
+
+# Define the number of terms in the series
+n_terms <- 10
+
+# Define the range of x values
+x_values <- seq(-1, 1, length.out = 100)
+
+# Calculate the power series for each x value
+power_series_values <- sapply(x_values, function(x) sum(power_series(x, n_terms)))
+# Plot the power series expansion
+plot(x_values, power_series_values, type = "l", col = "blue", 
+     xlab = "x", ylab = "Power Series Expansion",
+     main = "Power Series Expansion of 1/sqrt(1-4x)")
+
+# Add a horizontal line at y = 0 for reference
+abline(h = 0, lty = 2, col = "red")
+
+```
+
+
+
+
