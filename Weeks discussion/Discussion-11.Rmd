@@ -97,8 +97,17 @@ look
 
 ```
 
+```{r}
+df %>%
+  ggplot(aes(CAR_AGE)) +
+  geom_histogram(bins = 20)
+```
 
-
+```{r}
+df %>%
+  ggplot(aes(INCOME)) +
+  geom_histogram(bins = 20)
+```
 
 
 ```{r}
@@ -106,6 +115,8 @@ ggplot(df, aes(x = CAR_AGE  , y =INCOME)) +
   geom_point() +
   stat_smooth(method = "lm")
 ```
+
+Histograms reveal that both CAR_AGE and INCOME exhibit non-normal distributions. However, the scatterplot illustrates a linear relationship between the two variables.
 
 ```{r}
 lm1 <- lm(INCOME ~ CAR_AGE , data = df)
@@ -115,21 +126,21 @@ lm1 <- lm(INCOME ~ CAR_AGE , data = df)
 summary(lm1)
 ```
 
+
 ```{r}
-# Residual Plot
-plot(lm1, which = 1)
-
-# Normal Q-Q Plot
-plot(lm1, which = 2)
-
-# Residuals vs. Predictor Plot
-plot(lm1, which = 3)
-
+plot(lm1)
 ```
 
 
+The linear regression model shows a statistically significant relationship between car age and income.
 
-
+For each unit increase in car age, there is an estimated increase of $3440.01 in income, holding other variables constant.
+The intercept of $33191.32 represents the estimated income when car age is zero.
+The model explains approximately 17.16% of the variance in income, suggesting that car age alone accounts for a modest portion of the variability in income.
+The model is statistically significant, with both the coefficients for car age and the intercept having p-values less than 0.001.
+The residual standard error is $43240, indicating the average deviation of observed income values from the predicted values.
+However, it's important to note that a large number of observations were deleted due to missing data, which may impact the generalizability of the model.
+In conclusion, while car age appears to be a significant predictor of income, the model's explanatory power is relatively low, and the impact of missing data on the model's performance warrants further consideration.
 
 
 
