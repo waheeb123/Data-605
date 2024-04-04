@@ -1,0 +1,86 @@
+---
+title: "Linear Modeling of Stopping Distance in Relation to Speed Using the cars Dataset"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+```
+
+### Introduction
+
+This research aims to construct a linear model to predict stopping distance based on speed using the "cars" dataset available in R. The methodology follows a structured approach comprising exploratory data analysis, model building, evaluation of model quality, and residual analysis, as outlined in Chapter 3 of the textbook.
+
+### Methodology
+
+#### Data Collection and Preparation
+
+The "cars" dataset, a built-in dataset in R, is utilized for this analysis. The dataset consists of two variables: speed (in miles per hour) and stopping distance (in feet).
+```{r}
+data(cars)
+
+cars %>%
+  ggplot(aes(dist)) +
+  geom_histogram(bins = 20)
+
+cars %>%
+  ggplot(aes(speed)) +
+  geom_histogram(bins = 20)
+
+cars %>%
+  ggplot(aes(speed, dist)) +
+  geom_point() +
+  geom_smooth(formula = 'y ~ x', method = 'loess')
+```
+Histograms reveal that both speed and stopping distance exhibit non-normal distributions. However, the scatterplot illustrates a linear relationship between the two variables.
+
+#### Model Building
+
+```{r}
+model <- lm(dist ~ speed, data = cars)
+
+summary(model)
+```
+The linear regression model indicates that speed is a statistically significant predictor of stopping distance $(p < 0.05)$. 
+
+The model overall demonstrates statistical significance, with a significant portion of variance in stopping distance explained by speed $(R-squared = 0.6511)$. The coefficient for speed suggests that for each 1 mph increase, stopping distance is expected to increase by `3.9324 feet`.
+
+#### Model Visualization
+
+```{r}
+cars %>%
+  ggplot(aes(speed, dist)) +
+  geom_point() +
+  geom_smooth(formula = 'y ~ x', method = 'lm', se = TRUE)
+```
+Scatterplot overlays the regression line, indicating a reasonable fit of predicted values to actual values.
+
+#### Residual Analysis
+```{r}
+plot(model)
+```
+Fitted versus residuals plot suggests no evidence of heteroscedasticity, and residuals appear randomly distributed around zero. The QQ plot indicates relatively normal distribution of residuals, with some outliers in the right tail. The leverage plot shows that single observations do not exert undue influence on parameter estimates.
+
+
+### Conclusion
+
+The linear regression model provides a satisfactory fit for predicting stopping distance based on speed. Despite non-normal distributions of variables, the model meets key assumptions of linear regression. Overall, the analysis validates the effectiveness of speed as a predictor and underscores the importance of proper model evaluation and residual analysis in regression modeling.
+
+
+
+
+
+
+
+
+
+
+

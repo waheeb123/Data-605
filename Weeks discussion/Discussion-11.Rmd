@@ -1,0 +1,139 @@
+---
+title: "Discussion-11"
+author: "Waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+```{r packages, warning=FALSE, message = FALSE , echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE)
+library(tidyverse)
+library(DataExplorer)
+library(knitr)
+library(cowplot)
+library(finalfit)
+library(correlationfunnel)
+library(ggcorrplot)
+library(RColorBrewer)
+library(naniar)
+library(mice)
+library(MASS)
+select <- dplyr::select
+library(kableExtra)
+library(car)
+library(glmtoolbox)
+library(pROC)
+library(caret)
+library(robustbase)
+
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+**Using R, build a regression model for data that interests you. Conduct residual analysis.**
+
+```{r}
+df <-  read.csv("https://raw.githubusercontent.com/waheeb123/Data-621/main/Homeworks/Homework%204/insurance_training_data.csv")
+```
+
+```{r}
+str(df)
+```
+
+
+```{r data_classes, warning=F}
+classes <- as.data.frame(unlist(lapply(df, class))) |>
+    rownames_to_column()
+cols <- c("Variable", "Class")
+colnames(classes) <- cols
+classes_summary <- classes |>
+    group_by(Class) |>
+    summarize(Count = n(),
+              Variables = paste(sort(unique(Variable)),collapse=", "))
+kable(classes_summary, "latex", booktabs = T) |>
+  kableExtra::column_spec(2:3, width = "7cm")
+
+```
+
+`INCOME`, `HOME_VAL`, `BLUEBOOK`, and `OLDCLAIM` are all character variables that will need to be coerced to integers after we strip the "$" from their strings. `TARGET_FLAG` and the remaining character variables will all need to be coerced to factors.
+
+```{r data_char_int_recode}
+vars <- c("INCOME", "HOME_VAL", "BLUEBOOK", "OLDCLAIM")
+df <- df |>
+    mutate(across(all_of(vars), ~gsub("\\$|,", "", .) |> as.integer()))
+
+```
+
+We remove the column named `INDEX` from the dataset, then we take a look at a summary of the dataset's completeness.
+
+```{r}
+df <- df |> select(-INDEX)
+completeness <- introduce(df)
+knitr::kable(t(completeness), format = "simple")
+```
+
+None of our columns are completely devoid of data. There are 6,448 complete rows in the dataset, which is about 65% of our observations. There are 1,879 total missing values. We take a look at which variables contain these missing values and what the spread is.
+
+```{r data3, include = FALSE}
+look <- plot_missing(df, missing_only = TRUE,
+                   ggtheme = theme_classic(), title = "Missing Values")
+
+```
+
+```{r data4, warning = FALSE, message = FALSE, fig.show='hold', out.width='90%'}
+look <- look + 
+     scale_fill_brewer(palette = "Paired")
+look
+
+
+```
+
+
+
+
+
+```{r}
+ggplot(df, aes(x = CAR_AGE  , y =INCOME)) + 
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+```{r}
+lm1 <- lm(INCOME ~ CAR_AGE , data = df)
+```
+
+```{r}
+summary(lm1)
+```
+
+```{r}
+# Residual Plot
+plot(lm1, which = 1)
+
+# Normal Q-Q Plot
+plot(lm1, which = 2)
+
+# Residuals vs. Predictor Plot
+plot(lm1, which = 3)
+
+```
+
+
+
+
+
+
+
+
+
+
+
