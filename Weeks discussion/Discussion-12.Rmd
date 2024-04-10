@@ -1,0 +1,146 @@
+---
+title: "Discussion-12"
+author: "waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse) 
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+# Assignment
+
+Using R, build a multiple regression model for data that interests you.  Include in this model at least one quadratic term, one dichotomous term, and one dichotomous vs. quantitative interaction term.  Interpret all coefficients. Conduct residual analysis.  Was the linear model appropriate? Why or why not?
+
+# Preliminaries
+If you haven't already done so, then install the [tidyverse][1] collection of packages, and the [jtools][2] package. Functions from the jtools package depend on at least two other packages, ggstance, and huxtable, so you will also need to install those packages. You should also install the corrplot package if you have not already done so.
+
+You only need to install these packages once on the machine that you're using. If you have not already done so, then you can do so by uncommenting the code chunk below and running it. If you *have* already done so, then you should *not* run the next code chunk.
+```{r}
+# install.packages('tidyverse')
+# install.packages('jtools')
+# install.packages('ggstance')
+# install.packages('huxtable')
+# install.packages('corrplot')
+```
+
+Load the tidyverse collection of packages.
+```{r}
+library(tidyverse) 
+library(jtools) # For tabulating and visualizing results from multiple regression models
+library(corrplot)
+```
+
+
+Data
+
+https://www.kaggle.com/datasets/mirichoi0218/insurance
+
+```{r}
+df <- read_csv('https://raw.githubusercontent.com/waheeb123/Datasets/main/insurance.csv')
+
+```
+
+
+```{r}
+head(df)
+```
+
+
+```{r}
+sum(is.na(df))
+```
+
+
+# Simple Regressions  
+Creating a linear model using more than one explanatory variable is easy to do in R, but we also want to illustrate that it's not simply a combination of coefficients from many simple regressions that include only one predictor variable. (By the way, a simple regression is a regression in which there is only one predictor variable.) 
+
+As a benchmark, let's first calculate simple regression models of charges on age and bmi and store the coefficients and then aggregate R-squared values in dataframes for comparison purposes.
+
+```{r}
+lm1 <- lm(charges ~ age, data = df)
+lm2 <- lm(charges ~ bmi, data = df)
+export_summs(lm1, lm2) # Create a nice looking table for comparing the regression results
+```
+
+Model 1, using age as a predictor, has a higher R-squared value (0.09) and indicates that for each year increase in age, charges increase by $257.72. 
+Model 2, using BMI as a predictor, has a lower R-squared value (0.04) but suggests that for each unit increase in BMI, charges increase by $393.87. Both models are statistically significant (p < 0.001).
+
+```{r}
+plot_summs(lm1, lm2)
+```
+
+# Multiple Regression of Charges on age and bmi  
+Now, let's run a multiple regression that contains both predictor variables in the same model, and evaluate the models. It's called a multiple regression because it has multiple predictor variables.
+```{r}
+lm3 <- lm(charges ~ age + bmi, data = df)
+export_summs(lm1, lm2, lm3)
+```
+
+Model 3, incorporating both age and BMI as predictors, has the highest R-squared value (0.12), suggesting it explains the most variance in charges.
+The coefficients in Model 3 indicate that for each year increase in age, charges increase by $241.93, and for each unit increase in BMI, charges increase by $332.97.
+All models are statistically significant (p < 0.001).
+This summary provides an overview of the three models and their respective predictors in explaining the variation in charges.
+
+
+```{r}
+ctrd <- cor(df[, sapply(df, is.numeric)])
+corrplot(ctrd
+         , method = 'color' # I also like pie and ellipse
+         , order = 'hclust' # Orders the variables so that ones that behave similarly are placed next to each other
+         , addCoef.col = 'black'
+         , number.cex = .6 # Lower values decrease the size of the numbers in the cells
+         )
+
+```
+
+The coefficient estimates provide insights into how each predictor influences the dependent variable:
+
+BMI with Age (0.11): This indicates that for every one-unit increase in BMI, there's an associated increase of 0.11 units in age, holding all other variables constant. In other words, individuals with higher BMI tend to be slightly older on average.
+BMI with Charges (0.2): For every one-unit increase in BMI, there's a corresponding increase of 0.2 units in charges, all else being equal. This suggests that higher BMI is associated with higher medical charges.
+Age with Charges (0.3): For every one-unit increase in age, there's a simultaneous increase of 0.3 units in charges, keeping other factors constant. This implies that as individuals get older, their medical charges tend to increase, independent of BMI.
+
+This change is effectively communicated by visualizing the coefficients from all three models.
+```{r}
+plot_summs(lm1, lm2, lm3)
+```
+
+```{r}
+# Adding quadratic term for age
+df$age_squared <- df$age^2
+
+# Adding a dichotomous term for smoker (0: non-smoker, 1: smoker)
+df$smoker_binary <- as.integer(df$smoker == "yes")
+
+# Building the multiple regression model with quadratic term, dichotomous term, and interaction term
+lm4 <- lm(charges ~ age + age_squared + bmi + smoker_binary + age:bmi, data = df)
+summary(lm4)
+
+```
+
+
+```{r}
+# Residual analysis
+plot(lm4, which = 1)  # Residuals vs Fitted
+plot(lm4, which = 2)  # Normal Q-Q plot
+plot(lm4, which = 3)  # Scale-Location plot
+plot(lm4, which = 5)  # Cook's distance plot
+
+```
+The multiple regression model suggests that BMI and smoker status significantly influence medical charges, with each unit increase in BMI associated with a $326.73 increase in charges and smokers facing significantly higher charges compared to non-smokers. However, age does not have a significant linear relationship with charges, but its quadratic term is significant, indicating a nonlinear association. The interaction between age and BMI does not significantly affect charges. Overall, the model explains approximately 74.88% of the variance in charges.
+
+# Conclusion
+
+The multiple regression analysis conducted in R on the selected dataset demonstrates a comprehensive exploration of factors influencing medical charges. The model incorporated essential features such as a quadratic term for age, a dichotomous term for smoker status, and an interaction term between age and BMI. Interpretation of coefficients revealed that while BMI and smoker status significantly affect charges, age exhibits a nonlinear relationship with charges. However, the interaction between age and BMI did not significantly influence charges. Residual analysis indicated that the model adequately captures the variance in charges, with a substantial portion explained by the predictors. Therefore, despite the nonlinear relationship with age and the lack of significance in the age-BMI interaction, the linear model remains appropriate for understanding the determinants of medical charges in the dataset.
+
+
