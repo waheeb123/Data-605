@@ -1,0 +1,134 @@
+---
+title: "Final Project"
+author: "Rstudio"
+date: "2024-05-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+In this research project, we delve into Computational Mathematics by participating in the House Prices: Advanced Regression Techniques competition hosted on Kaggle.com. Through this project, we aim to showcase our understanding of various mathematical concepts, statistical methods, and their application in real-world datasets. The project spans across different branches of mathematics including probability theory, descriptive and inferential statistics, linear algebra, calculus-based probability and statistics, and modeling through regression analysis.
+
+
+#### Installing required Libraries
+
+```{r}
+suppressWarnings(library(data.table))
+suppressWarnings(library(corrplot))
+suppressWarnings(library(ggplot2))
+suppressWarnings(library(knitr))
+suppressWarnings(library(Hmisc))
+suppressWarnings(library(MASS))
+suppressWarnings(library(forecast))
+```
+
+
+### Data
+
+
+```{r}
+houses <- read_csv("train.csv")
+
+names(houses) <- tolower(gsub(" ", "_", names(houses)))
+
+str(houses)
+dim(houses)
+kable(head(houses))
+
+
+```
+#### Missing Values and NA's
+
+
+Handling missing values in the berginning to perform analysis smoothly later on. Creating a dataframe for 
+columns of the dataframe houses to remove NA'swith required values(variables). Table out the values connecting each other to analyze NA's and remove or replace with required data. In our dataset garage condition, garage type, garage condition are interlinked, creating pairs to check this and handle the missing values.
+
+
+```{r}
+df_na<- data.frame(colSums(is.na(houses)))
+names(df_na)<- c( "na")
+
+
+
+
+kable(table(houses$poolqc,houses$poolarea, useNA = 'ifany'))
+
+## 1,453 NA's with poolarea 0. assuming there is no pool, replace with "None"
+houses$poolqc[is.na(houses$poolqc)]<- "None"
+
+## Using similar technique for fire places
+table(houses$fireplacequ,houses$fireplaces,useNA = 'ifany')
+houses$fireplacequ[is.na(houses$fireplacequ)] <- "None"
+
+
+
+
+## missing values for allcolumns related to garage, assuming no garage at all
+#table(houses$garagetype,houses$garageyrblt,useNA = 'ifany')
+
+
+houses$garagetype[is.na(houses$garagetype)] <- "None"
+houses$garageyrblt[is.na(houses$garageyrblt)] <- ""
+houses$garagecond[is.na(houses$garagecond)] <- "None"
+houses$garagefinish[is.na(houses$garagefinish)] <- "None"
+houses$garagequal[is.na(houses$garagequal)] <- "None"
+
+
+
+## another category
+table(is.na(houses$masvnrarea),is.na(houses$masvnrtype))
+houses$masvnrtype[is.na(houses$masvnrtype)] <- "None"
+houses$masvnrarea[is.na(houses$masvnrarea)] <- 0
+
+
+##for basement
+
+table(houses$bsmtfintype1,houses$bsmtfintype2, useNA = 'ifany')
+houses$bsmtfintype1[is.na(houses$bsmtfintype1)] <- "None"
+houses$bsmtfintype2[is.na(houses$bsmtfintype2)] <- "None"
+
+table(houses$bsmtqual,houses$bsmtcond, useNA = 'ifany')
+houses$bsmtqual[is.na(houses$bsmtqual)] <- "None"
+houses$bsmtcond[is.na(houses$bsmtcond)] <- "None"
+houses$bsmtexposure[is.na(houses$bsmtexposure)] <- "None"  
+## we can replace basement exposure  with "No" as it is included in the values, we assume it is different than ##having a basement with no exposure or no basement at all
+
+
+
+### misc. columns
+houses$miscfeature[is.na(houses$miscfeature)] <- "None"
+houses$fence[is.na(houses$fence)] <- "None"
+houses$alley[is.na(houses$alley)] <- "None"
+houses$lotfrontage[is.na(houses$lotfrontage)] <- 0
+houses$electrical[is.na(houses$electrical)] <- "None"
+
+
+
+
+colSums(is.na(houses))
+
+## no misiing values, we can move forward with the analysis.
+```
+
+Another required check is to find unique levels of categorical variables.Categories are incorrectly 
+entered as lower case or first letter is capitalized. e.g.  column misc feature has the categoies
+
+"None" "Shed" "Gar2" "Othr" "TenC". We can perform a check at the variables if the data is correct. "Othr" "othr" might corresponds to same category. Random check was performed on few categorical variables. Based on the variables required for analysis, this can be performed on them.
+
+```{r}
+
+## performing a random check at cat. variables.
+
+unique(houses$extercond)
+
+unique(houses$extercond)
+
+unique(houses$miscval)
+
+
+unique(houses$street)
+```
