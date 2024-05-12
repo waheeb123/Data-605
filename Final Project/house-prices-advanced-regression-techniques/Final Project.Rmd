@@ -1,22 +1,25 @@
 ---
 title: "Final Project"
-author: "Rstudio"
-date: "2024-05-12"
-output: html_document
+author: "Waheeb Algabri"
+output:
+  html_document:
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Introduction
 
-In this research project, we delve into Computational Mathematics by participating in the House Prices: Advanced Regression Techniques competition hosted on Kaggle.com. Through this project, we aim to showcase our understanding of various mathematical concepts, statistical methods, and their application in real-world datasets. The project spans across different branches of mathematics including probability theory, descriptive and inferential statistics, linear algebra, calculus-based probability and statistics, and modeling through regression analysis.
+In this final exam, we delve into Computational Mathematics by participating in the House Prices: Advanced Regression Techniques competition hosted on Kaggle.com. Through this exam, we aim to showcase our understanding of various mathematical concepts, statistical methods, and their application in real-world datasets. The exam spans across different branches of mathematics including probability theory, descriptive and inferential statistics, linear algebra, calculus-based probability and statistics, and modeling through regression analysis.
 
 
 #### Installing required Libraries
 
-```{r}
+```{r echo=FALSE}
 suppressWarnings(library(data.table))
 suppressWarnings(library(corrplot))
 suppressWarnings(library(ggplot2))
@@ -29,9 +32,8 @@ suppressWarnings(library(forecast))
 
 ### Data
 
-
 ```{r}
-houses <- read_csv("train.csv")
+houses <- fread("https://raw.githubusercontent.com/waheeb123/Data-605/main/Final%20Project/house-prices-advanced-regression-techniques/train.csv")
 
 names(houses) <- tolower(gsub(" ", "_", names(houses)))
 
@@ -41,6 +43,7 @@ kable(head(houses))
 
 
 ```
+
 #### Missing Values and NA's
 
 
