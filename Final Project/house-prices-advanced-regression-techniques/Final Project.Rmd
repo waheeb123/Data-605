@@ -18,7 +18,9 @@ In this final exam, we delve into Computational Mathematics by participating in 
 
 ##### Installing required Libraries
 
-```{r echo=FALSE}
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
 suppressWarnings(library(data.table))
 suppressWarnings(library(corrplot))
 suppressWarnings(library(ggplot2))
@@ -442,9 +444,10 @@ The multiple R-squared value of 0.1035 indicates that approximately 10.35% of th
 
 Now, we must predict SalePrice in test_data using our model
 
+
 ```{r}
 # Read test.csv
-test_data <- read.csv("https://raw.githubusercontent.com/waheeb123/Data-605/main/Final%20Project/house-prices-advanced-regression-techniques/test.csv")
+test_data <- read.csv("https://raw.githubusercontent.com/waheeb123/Data-605/main/Final%20Project/house-prices-advanced-regression-techniques/test_data")
 
 # Summary
 summary(test_data)
@@ -461,7 +464,7 @@ anyNA(test_data)
 sum(is.na(test_data))
 ```
 
-```{r}
+```{r,error = FALSE}
 # 7000 missing values
 
 
@@ -498,7 +501,7 @@ sum(is.na(test_data))
 
 ```{r}
 # Create new dataframe of ID's and predicted SalePrice for Kaggle Submission
-Kaggle <- test_data[, c('Id', 'LotFrontage')]
+Kaggle <- test_data[, c('Id', 'SalePrice')]
 
 # Export new dataframe to csv
 write.csv(Kaggle, "605final.csv", row.names = FALSE)
