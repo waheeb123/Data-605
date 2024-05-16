@@ -12,12 +12,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+##### Introduction
 
 In this final exam, we delve into Computational Mathematics by participating in the House Prices: Advanced Regression Techniques competition hosted on Kaggle.com. Through this exam, we aim to showcase our understanding of various mathematical concepts, statistical methods, and their application in real-world datasets. The exam spans across different branches of mathematics including probability theory, descriptive and inferential statistics, linear algebra, calculus-based probability and statistics, and modeling through regression analysis.
 
-
-#### Installing required Libraries
+##### Installing required Libraries
 
 ```{r echo=FALSE}
 suppressWarnings(library(data.table))
@@ -27,10 +26,10 @@ suppressWarnings(library(knitr))
 suppressWarnings(library(Hmisc))
 suppressWarnings(library(MASS))
 suppressWarnings(library(forecast))
+library(knitr)
 ```
 
-
-### Data
+##### Data
 
 ```{r}
 houses <- fread("https://raw.githubusercontent.com/waheeb123/Data-605/main/Final%20Project/house-prices-advanced-regression-techniques/train.csv")
@@ -46,16 +45,11 @@ kable(head(houses))
 
 #### Missing Values and NA's
 
-
-Handling missing values in the berginning to perform analysis smoothly later on. Creating a dataframe for 
-columns of the dataframe houses to remove NA'swith required values(variables). Table out the values connecting each other to analyze NA's and remove or replace with required data. In our dataset garage condition, garage type, garage condition are interlinked, creating pairs to check this and handle the missing values.
-
+Handling missing values in the berginning to perform analysis smoothly later on. Creating a dataframe for columns of the dataframe houses to remove NA'swith required values(variables). Table out the values connecting each other to analyze NA's and remove or replace with required data. In our dataset garage condition, garage type, garage condition are interlinked, creating pairs to check this and handle the missing values.
 
 ```{r}
 df_na<- data.frame(colSums(is.na(houses)))
 names(df_na)<- c( "na")
-
-
 
 
 kable(table(houses$poolqc,houses$poolarea, useNA = 'ifany'))
@@ -117,8 +111,7 @@ colSums(is.na(houses))
 ## no misiing values, we can move forward with the analysis.
 ```
 
-Another required check is to find unique levels of categorical variables.Categories are incorrectly 
-entered as lower case or first letter is capitalized. e.g.  column misc feature has the categoies
+Another required check is to find unique levels of categorical variables.Categories are incorrectly entered as lower case or first letter is capitalized. e.g. column misc feature has the categoies
 
 "None" "Shed" "Gar2" "Othr" "TenC". We can perform a check at the variables if the data is correct. "Othr" "othr" might corresponds to same category. Random check was performed on few categorical variables. Based on the variables required for analysis, this can be performed on them.
 
@@ -135,3 +128,384 @@ unique(houses$miscval)
 
 unique(houses$street)
 ```
+
+##### Selecting Variables for Probability
+
+Pick one of the quanititative independent variables from the training data set (train.csv) , and define that variable as X. Make sure this variable is skewed to the right! Pick the dependent variable and define it as Y.
+
+The variable to be selected for the prediction is lot area.Variable X will be the lot area and vriable Y is described as the sale price.
+
+Plotting the variables.
+
+```{r}
+X<- hist (houses$lotfrontage)
+Y<- hist (houses$saleprice)
+```
+
+##### Probability
+
+Calculate as a minimum the below probabilities a through c. Assume the small letter "x" is estimated as the 3d quartile of the X variable, and the small letter "y" is estimated as the 2d quartile of the Y variable. Interpret the meaning of all probabilities. In addition, make a table of counts as shown below.
+
+```{r}
+
+# Extract data
+X <- houses$lotfrontage
+Y <- houses$saleprice
+
+# Compute quartiles
+## Third quartile of X
+x <- quantile(X, 0.75, na.rm = TRUE)
+
+## Second quartile of Y
+y <- quantile(Y, 0.50, na.rm = TRUE)
+```
+
+```{r}
+# Interpretation of probabilities
+# a. P(X>x | Y>y)
+prob_a <- sum(X > x & Y > y) / sum(Y > y)
+
+# b. P(X>x, Y>y)
+prob_b <- sum(X > x & Y > y) / length(X) # Assuming total number of observations for X and Y are the same
+
+# c. P(X<x | Y>y)
+prob_c <- sum(X < x & Y > y) / sum(Y > y)
+
+# Create a table of counts
+table_X <- cut(X, breaks = c(-Inf, x, Inf), labels = c("<=3d quartile", ">3d quartile"))
+table_Y <- cut(Y, breaks = c(-Inf, y, Inf), labels = c("<=2d quartile", ">2d quartile"))
+table_counts <- table(table_X, table_Y)
+
+# Add totals to the table
+table_counts_with_totals <- addmargins(table_counts)
+
+# Display results
+print("Probability a:")
+print(kable(prob_a))
+print("Probability b:")
+print(kable(prob_b))
+print("Probability c:")
+print(kable(prob_c))
+print("Table of counts:")
+print(kable(table_counts_with_totals))
+
+
+```
+
+**a. P(X\>x \| Y\>y)**
+
+Probability of lot frontage exceeding x given sale price exceeds y, calculated as instances where X is in top quartile and Y is in second highest quartile divided by total Y instances in that quartile.
+
+------------------------------------------------------------------------
+
+**b. P(X\>x, Y\>y)**
+
+The probability indicates the likelihood of both lot frontage (X) and sale price (Y) exceeding their respective quartile values (x) and (y). It's computed by dividing the count of observations where both X and Y exceed their quartile values (243) by the total count of observations (1460).
+
+**c. P(X\<x \| Y\>y)**
+
+The probability signifies the chance that the lot frontage (X) is below the third quartile value (x) given that the sale price (Y) exceeds the second quartile value (y). It's computed by dividing the count of observations where X falls into the lower or equal to the third quartile category and Y falls into the higher than the second quartile category (485) by the total count of observations where Y falls into the higher than the second quartile category (728).
+
+**Does splitting the training data in this fashion make them independent? Let A be the new variable counting those observations above the 3d quartile for X, and let B be the new variable counting those observations above the 2d quartile for Y. Does P(A\|B)=P(A)P(B)? Check mathematically, and then evaluate by running a Chi Square test for association.**
+
+```{r}
+# Calculate total count of observations
+total_count <- nrow(houses)
+
+# Calculate counts for A (observations above the third quartile for X) and B (observations above the second quartile for Y)
+count_A <- sum(X > x)  # Count of observations above the third quartile for X
+count_B <- sum(Y > y)  # Count of observations above the second quartile for Y
+
+# Calculate probabilities
+prob_A <- count_A / total_count
+prob_B <- count_B / total_count
+
+# Extract counts for A and B
+table_A <- table_X == ">3d quartile"
+table_B <- table_Y == ">2d quartile"
+
+# Calculate count of observations in A and B
+count_A_and_B <- sum(table_A & table_B)
+
+# Calculate probability of A intersection B
+prob_A_and_B <- count_A_and_B / total_count
+
+# Calculate conditional probability P(A|B)
+prob_A_given_B <- prob_A_and_B / prob_B
+
+# Check if P(A|B) = P(A) * P(B)
+is_independent <- prob_A_given_B == (prob_A * prob_B)
+
+# Chi-square test for association
+chisq_test <- chisq.test(table_counts)
+
+```
+
+```{r}
+# Display results
+cat("Probability of observations above the third quartile for X (A):", prob_A, "\n")
+cat("Probability of observations above the second quartile for Y (B):", prob_B, "\n")
+cat("Probability of observations in both A and B (A ∩ B):", prob_A_and_B, "\n")
+cat("Conditional probability P(A|B):", prob_A_given_B, "\n")
+cat("Is A independent of B (P(A|B) = P(A) * P(B)):", is_independent, "\n\n")
+
+# Chi-square test result
+cat("Chi-square test for association:\n")
+print(chisq_test)
+
+```
+
+The Chi-square test indicates a significant association between the variables A and B, rejecting the hypothesis of independence.
+
+##### Descriptive and Inferential Statistics.
+
+Provide univariate descriptive statistics and appropriate plots for the training data set. Provide a scatterplot of X and Y. Provide a 95% CI for the difference in the mean of the variables. Derive a correlation matrix for two of the quantitative variables you selected. Test the hypothesis that the correlation between these variables is 0 and provide a 99% confidence interval. Discuss the meaning of your analysis.
+
+```{r}
+# Univariate Descriptive Statistics
+summary(houses)
+
+# Plotting histograms for all quantitative variables
+par(mfrow = c(2, 2)) # Setting up the layout for multiple plots
+hist(houses$lotfrontage, main = "Histogram of Lot Frontage", xlab = "Lot Frontage")
+hist(houses$saleprice, main = "Histogram of Sale Price", xlab = "Sale Price")
+hist(houses$lotarea, main = "Histogram of Lot Area", xlab = "Lot Area")
+hist(houses$overallqual, main = "Histogram of Overall Quality", xlab = "Overall Quality")
+
+# Scatterplot of X (lotfrontage) and Y (saleprice)
+plot(houses$lotfrontage, houses$saleprice, xlab = "Lot Frontage", ylab = "Sale Price", main = "Scatterplot of Lot Frontage vs. Sale Price")
+
+# 95% Confidence Interval for the Difference in Means
+t.test(houses$lotfrontage, houses$saleprice, conf.level = 0.95)
+
+# Correlation Matrix
+correlation_matrix <- cor(houses[, c("lotfrontage", "saleprice")])
+
+# Test for correlation
+correlation_test <- cor.test(houses$lotfrontage, houses$saleprice)
+
+# Confidence Interval for Correlation
+correlation_ci <- cor.test(houses$lotfrontage, houses$saleprice, conf.level = 0.99)
+
+# Display results
+print("Correlation Matrix:")
+print(correlation_matrix)
+
+print("Test for Correlation:")
+print(correlation_test)
+
+print("Confidence Interval for Correlation:")
+print(correlation_ci)
+
+```
+
+95% CI for Difference in Means: Difference in means between Lot Frontage and Sale Price estimated between -\$184,941.9 and -\$176,785.2. Correlation: Weak positive correlation (r = 0.21) between Lot Frontage and Sale Price, statistically significant (p \< 0.05).
+
+##### Linear Algebra and Correlation.
+
+Invert your correlation matrix. (This is known as the precision matrix and contains variance inflation factors on the diagonal.) Multiply the correlation matrix by the precision matrix, and then multiply the precision matrix by the correlation matrix. Conduct principle components analysis (research this!) and interpret. Discuss.
+
+```{r}
+# Invert the correlation matrix (calculate the precision matrix)
+precision_matrix <- solve(correlation_matrix)
+
+# Multiply the correlation matrix by the precision matrix
+correlation_precision <- correlation_matrix %*% precision_matrix
+
+# Multiply the precision matrix by the correlation matrix
+precision_correlation <- precision_matrix %*% correlation_matrix
+
+# Principal Component Analysis (PCA)
+pca_result <- prcomp(houses[, c("lotfrontage", "saleprice")], scale. = TRUE)
+
+# Summary of PCA
+summary(pca_result)
+
+```
+
+The PCA results show that the first principal component (PC1) explains 60.48% of the total variance, while the second principal component (PC2) explains 39.52%. Together, these two components capture all the variance in the dataset, with PC1 being more influential in explaining the variability compared to PC2.
+
+##### Calculus-Based Probability & Statistics.
+
+Many times, it makes sense to fit a closed form distribution to data. For your variable that is skewed to the right, shift it so that the minimum value is above zero. Then load the MASS package and run fitdistr to fit an exponential probability density function. (See <https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/fitdistr.html> ). Find the optimal value of l for this distribution, and then take 1000 samples from this exponential distribution using this value (e.g., rexp(1000, λ)). Plot a histogram and compare it with a histogram of your original variable. Using the exponential pdf, find the 5th and 95th percentiles using the cumulative distribution function (CDF). Also generate a 95% confidence interval from the empirical data, assuming normality. Finally, provide the empirical 5th percentile and 95th percentile of the data. Discuss.
+
+```{r}
+# Shift the data so that the minimum value is above zero
+shifted_data <- houses$lotarea - min(houses$lotarea) + 1
+
+# Load the MASS package
+library(MASS)
+
+# Fit exponential distribution using fitdistr
+fit_exponential <- fitdistr(shifted_data, "exponential")
+
+# Get the optimal value of lambda
+optimal_lambda <- fit_exponential$estimate
+
+# Generate 1000 samples from the exponential distribution
+samples <- rexp(1000, rate = optimal_lambda)
+
+```
+
+```{r}
+# Summary of the fitted exponential distribution
+print("Summary of the fitted exponential distribution:")
+print(fit_exponential)
+
+# Print the optimal value of lambda
+cat("Optimal value of lambda:", optimal_lambda, "\n")
+
+# Summary statistics of the generated samples
+summary(samples)
+
+# Visualize the generated samples
+hist(samples, main = "Histogram of Generated Samples from Exponential Distribution", xlab = "Sample Value", ylab = "Frequency")
+
+```
+
+```{r}
+# Calculate the 5th and 95th percentiles using the CDF of the fitted exponential distribution
+percentile_5 <- qexp(0.05, rate = optimal_lambda)
+percentile_95 <- qexp(0.95, rate = optimal_lambda)
+
+# Generate a 95% confidence interval from the empirical data assuming normality
+mean_empirical <- mean(shifted_data)
+sd_empirical <- sd(shifted_data)
+n <- length(shifted_data)
+margin_of_error <- qt(0.975, df = n-1) * sd_empirical / sqrt(n)
+confidence_interval <- c(mean_empirical - margin_of_error, mean_empirical + margin_of_error)
+
+# Provide the empirical 5th and 95th percentiles of the data
+empirical_percentile_5 <- quantile(shifted_data, 0.05)
+empirical_percentile_95 <- quantile(shifted_data, 0.95)
+
+# Print the results
+cat("5th Percentile using CDF:", percentile_5, "\n")
+cat("95th Percentile using CDF:", percentile_95, "\n")
+cat("95% Confidence Interval from Empirical Data (Normality Assumption):", confidence_interval, "\n")
+cat("Empirical 5th Percentile:", empirical_percentile_5, "\n")
+cat("Empirical 95th Percentile:", empirical_percentile_95, "\n")
+
+```
+
+These values offer a compact overview of the distribution characteristics and provide key insights into the dataset's variability and central tendency.
+
+##### Modeling.
+
+Build some type of regression model and submit your model to the competition board. Provide your complete model summary and results with analysis. Report your Kaggle.com user name and score.
+
+**Simple linear regression**
+
+```{r}
+# Simple linear regression model of SalePrice by GrLivArea, for later comparison to our multi-linear regression model
+train.lm <- lm(Y ~ X, data=houses)
+
+# Get summary of our model
+summary(train.lm)
+```
+
+```{r}
+# Residuals scatterplot
+plot(train.lm$fitted.values, train.lm$residuals, xlab="Fitted Values", ylab="Residuals")
+abline(h=0, col="skyblue")
+```
+
+```{r}
+# Residuals Histogram
+hist(train.lm$residuals, main="Simple Linear Residuals Histogram")
+```
+
+```{r}
+# QQ Plot
+qqnorm(train.lm$residuals)
+qqline(train.lm$residuals)
+```
+
+```{r}
+# Plot
+par(mfrow=c(2,2))
+plot(train.lm)
+```
+
+**Multiple Linear Regression**
+
+```{r}
+# Multiple regression model
+train.lm2 <- lm(saleprice ~ lotfrontage + lotarea, data = houses)
+
+# Check summary of our multiple-regression model
+summary(train.lm2)
+
+```
+
+The multiple R-squared value of 0.1035 indicates that approximately 10.35% of the variability in sale prices can be explained by the predictors lotfrontage and lotarea.This model is significantly more accurate than a single linear regression model which accounted for only 50% of the variance.
+
+Now, we must predict SalePrice in test_data using our model
+
+```{r}
+# Read test.csv
+test_data <- read.csv("https://raw.githubusercontent.com/waheeb123/Data-605/main/Final%20Project/house-prices-advanced-regression-techniques/test.csv")
+
+# Summary
+summary(test_data)
+
+```
+
+```{r}
+# Check for nulls/missing data
+anyNA(test_data)
+```
+
+```{r}
+# How many missing values?
+sum(is.na(test_data))
+```
+
+```{r}
+# 7000 missing values
+
+
+# Missing values from each column
+Missing_values2 <- colSums(is.na(test_data))
+Missing_values2[Missing_values2>0]
+```
+
+
+```{r}
+# Let's replace the missing numeric records with the average value of each column
+for(i in 1:ncol(test_data)){
+  test_data[is.na(test_data[ ,i]), i] <- mean(test_data[ ,i], na.rm = TRUE)
+}
+
+
+# Now replace the missing values in the categorical variables (https://stackoverflow.com/questions/36377813/impute-most-frequent-categorical-value-in-all-columns-in-data-frame)
+i2 <- !sapply(test_data, is.numeric)
+
+# Most common value
+Mode <- function(x) { 
+      ux <- sort(unique(x))
+      ux[which.max(tabulate(match(x, ux)))] 
+}
+
+# Replace the NAs in character columns with the most freq
+test_data[i2] <- lapply(test_data[i2], function(x)
+              replace(x, is.na(x), Mode(x[!is.na(x)])))
+
+# Check to see if any values are missing/NA
+sum(is.na(test_data)) 
+```
+
+
+```{r}
+# Create new dataframe of ID's and predicted SalePrice for Kaggle Submission
+Kaggle <- test_data[, c('Id', 'LotFrontage')]
+
+# Export new dataframe to csv
+write.csv(Kaggle, "605final.csv", row.names = FALSE)
+
+```
+
+[Waheeb Algabri](https://www.kaggle.com/learnernone)
+
+
+
